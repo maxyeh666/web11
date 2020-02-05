@@ -33,3 +33,10 @@ require_once _WEB_PATH.'/smarty.php';
 require_once _WEB_PATH . '/function.php';
 
 $_SESSION['admin'] = isset($_SESSION['admin']) ? $_SESSION['admin'] : false;
+if(!$_SESSION['admin']){
+  $_COOKIE['token'] = isset($_COOKIE['token']) ? $_COOKIE['token'] : "";
+  $_COOKIE['name'] = isset($_COOKIE['name']) ? $_COOKIE['name'] : "";
+  if($_COOKIE['name'] == "admin" and $_COOKIE['token'] == "xxxxxx"){
+    $_SESSION['admin'] = true;
+  }
+}
