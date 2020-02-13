@@ -11,13 +11,16 @@
             </button>
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
-                    <a href="index.php">
-                        <li class="list-group-item">
-                        返回首頁
-                        </li>
-                    </a>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    
+                    <li class="list-group-item">
+                        <a href="index.php">返回首頁</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://localhost/adminer/adminer.php" target="_blank">資料庫介面</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="user.php?op=logout" class="btn-block">登出</a>
+                    </li>
                 </ul>
             </div>
         </div>

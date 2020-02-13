@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+  <title>GOOGLE問題簡答</title>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/popper.min.js"></script> 
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+ 
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">GOOGLE問題簡答</h1>
+        
+        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScAJMeKj3F5jZM2_P-WLvis-raA7psd7X-2ETX46uEsgnuTdg/formResponse" method="post" id="myForm" class="mb-20" enctype="multipart/form-data">
+            <div class="row">           
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>便當1_90元<span class="text-danger">*(必填欄位)</span></label>
+                        <input type="text" class="form-control number" min="0" name="entry.211598464" id="uname" value="" required>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>便當2_80元<span class="text-danger">*(必填欄位)</span></label>
+                        <input type="text" class="form-control number" min="0" name="entry.542963972" id="uname" value="" required>
+                    </div>
+                </div>        
+            </div>         
+            <div class="text-center pb-20">
+                <input type="hidden" name="op" value="reg">
+                <button type="submit" class="btn btn-primary">送出</button>
+            </div> 
+            <script type="text/javascript"> 
+                $(function() { 
+                $("#myForm").validate(); 
+                }) 
+            </script> 
+        </form>
+</body>
