@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<{$xoImgUrl}>bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="<{$xoImgUrl}>bootstrap/bootstrap.min.css">
 
     <title>點餐成功</title>
 </head>

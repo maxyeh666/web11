@@ -1,4 +1,27 @@
-<style>
+<?php
+/* Smarty version 3.1.34-dev-7, created on 2020-02-13 18:23:27
+  from 'E:\xampp\htdocs\web11\templates\tpl\login_form.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.34-dev-7',
+  'unifunc' => 'content_5e45860f617b56_24670644',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '831a50b55f1ad1d5687e4f71b30eaca37700fb0d' => 
+    array (
+      0 => 'E:\\xampp\\htdocs\\web11\\templates\\tpl\\login_form.tpl',
+      1 => 1581614601,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_5e45860f617b56_24670644 (Smarty_Internal_Template $_smarty_tpl) {
+?><style>
     .form-signin {
       width: 100%;
       max-width: 400px;
@@ -95,7 +118,9 @@
               <button type="submit" class="btn btn-primary">送出</button>
             </div>
           </form>
-            <iframe name="returnWin" style="display: none;" onload="this.onload=function(){window.location='<{$xoAppUrl}>ok.php'}">
+            <iframe name="returnWin" style="display: none;" onload="this.onload=function(){window.location='<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+ok.php'}">
             </iframe>
     </div>
-  </div>
+  </div><?php }
+}
