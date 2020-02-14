@@ -14,7 +14,7 @@ function system_CleanVars(&$global, $key, $default = '', $type = 'int')
       $ret = (isset($global[$key])) ? strtotime($global[$key]) : $default;
       break;
     case 'string':
-      $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
+      $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_ADD_SLASHES ) : $default;
       break;
     case 'int': default:
       $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
@@ -96,12 +96,14 @@ function db_filter($var, $title = '', $filter = ''){
   $var = $db->real_escape_string($var);
 
   if($title){
-    if($var === "")redirect_header(_WEB_URL, $title . '為必填！', 3000);
+    if($var === ""){
+      redirect_header("index.php?op=reg_form", $title . '為必填！');
+    }
   }
 
   if ($filter) {
     $var = filter_var($var, $filter);
-    redirect_header(_WEB_URL, "不合法的{$title}", 3000);
+    if (!$var) redirect_header("index.php?op=reg_form", "不合法的{$title}", 3000);
   }
   return $var;
 }

@@ -1,6 +1,6 @@
 <?php
 require_once 'head.php';
- 
+
 /* 過濾變數，設定預設值 */
 $op = system_CleanVars($_REQUEST, 'op', 'op_list', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
@@ -22,6 +22,7 @@ switch ($op){
 
     case "reg_form" :
       $msg = reg_form();
+      header("location:index.php");//注意前面不可以有輸出
       break;
   
     default:
