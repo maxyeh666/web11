@@ -1,5 +1,5 @@
-<div class="container mt-5">
-    <h1 class="text-center">註冊表單</h1>
+<div class="container" style="margin-top: 70px;">
+    <h1 class="text-center text-primary">註冊表單</h1>
     
     <form action="user.php" method="post" id="myForm" class="mb-20" enctype="multipart/form-data">
     

@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="<{$xoImgUrl}>bootstrap/bootstrap.min.css" />
-  <title>會員管理</title>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="<{$xoImgUrl}>js/jquery-3.4.1.min.js"></script>
-  <script src="<{$xoImgUrl}>js/popper.min.js"></script>
-  <script src="<{$xoImgUrl}>bootstrap/bootstrap.min.js"></script>
+<title>會員管理</title>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="<{$xoImgUrl}>js/jquery-3.4.1.min.js"></script>
+<script src="<{$xoImgUrl}>js/popper.min.js"></script>
+<script src="<{$xoImgUrl}>bootstrap/bootstrap.min.js"></script>
+
+
 </head>
 <body>
-    <{*sweetalert2*}>
-    <{if $redirect}>
-      <!-- sweetalert2 css-->
-      <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
-
-      <!-- sweetalert2 js-->
-      <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
-      <script>
-      window.onload = function(){
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: "<{$message}>",
-            showConfirmButton: false,
-            timer: <{$time}>
-        })
-      }
-      </script>
-    <{/if}>
+    <{* 轉向 *}>
+    <{include file="tpl/redirect.tpl"}>
 
     <{if $smarty.session.admin}>
       <{* 管理員 *}>

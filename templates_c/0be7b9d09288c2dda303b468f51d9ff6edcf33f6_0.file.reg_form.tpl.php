@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-13 03:37:57
+/* Smarty version 3.1.34-dev-7, created on 2020-02-14 09:23:03
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\reg_form.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e44b6854708a5_53930237',
+  'unifunc' => 'content_5e4658e7eb41e3_83593393',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0be7b9d09288c2dda303b468f51d9ff6edcf33f6' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\reg_form.tpl',
-      1 => 1581561464,
+      1 => 1581668582,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,9 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e44b6854708a5_53930237 (Smarty_Internal_Template $_smarty_tpl) {
-?><div class="container mt-5">
-    <h1 class="text-center">註冊表單</h1>
+function content_5e4658e7eb41e3_83593393 (Smarty_Internal_Template $_smarty_tpl) {
+?><div class="container" style="margin-top: 70px;">
+    <h1 class="text-center text-primary">註冊表單</h1>
     
     <form action="user.php" method="post" id="myForm" class="mb-20" enctype="multipart/form-data">
     
@@ -142,7 +142,6 @@ function content_5e44b6854708a5_53930237 (Smarty_Internal_Template $_smarty_tpl)
         });
     <?php echo '</script'; ?>
 >
-    
 </div>
 <?php }
 }

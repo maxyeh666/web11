@@ -1,51 +1,45 @@
 <?php
 /* 引入檔頭，每支程都會引入 */
 require_once 'head.php';
- 
 
 /* 過濾變數，設定預設值 */
 $op = system_CleanVars($_REQUEST, 'op', 'login_form', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
- 
+
 /* 程式流程 */
 switch ($op){
   case "op_form" :
     $msg = op_form();
     break;
- 
+
   case "login" :
     $msg = login();
-    redirect_header("index.php", '登入成功!', 5000);
-    exit;//轉向時使用exit跳出
+    redirect_header("index.php", "登入成功!" , 3000);
+    exit;
 
   case "logout" :
     $msg = logout();
-    redirect_header("index.php", '登出完成!', 5000);
+    redirect_header("index.php", "登出完成!", 5000);
     exit;
-
-  case "reg_form" :
-    $msg = reg_form();
-    reg_form();
-    break;//執行某項函式,執行結束使用break
 
   case "reg" :
     $msg = reg();
-    header("location:index.php");
+    redirect_header("index.php", "註冊成功", 5000);
     exit;
- 
+
   default:
-    $op = "login_form";
-    login_form();
+    $op = "op_list";
+    op_list();
     break;  
 }
- 
+
 /*---- 將變數送至樣版----*/
 $smarty->assign("WEB", $WEB);
 $smarty->assign("op", $op);
- 
+
 /*---- 程式結尾-----*/
 $smarty->display('user.tpl');
- 
+
 /*---- 函數區-----*/
 function logout(){  //登出的函數設定
   $_SESSION['admin'] = "";  //登出時將admin變回空白值
@@ -55,8 +49,12 @@ function logout(){  //登出的函數設定
 
 function op_form(){
   global $smarty;
-
 }
+
+function op_list(){
+  global $smarty;
+}
+
 function login(){
   global $smarty;
   $name="admin";
@@ -78,14 +76,6 @@ function login(){
     }
 }
 
-function login_form(){
-  global $smarty;
-}
-
-function reg_form(){
-  global $smarty;
-}
-
 function reg(){
   global $db;
   #過濾輸入的資料
@@ -96,28 +86,17 @@ function reg(){
   $_POST['tel'] = $db->real_escape_string($_POST['tel']);
   $_POST['email'] = $db->real_escape_string($_POST['email']);
   #加密處理
-  $pass = $db->real_escape_string($_POST['pass']);
   if($_POST['pass'] != $_POST['chk_pass'])
   {
-    die("密碼不一致!");
-  }
-  if (empty($pass)) {
-    die("密碼為必填！");
+    redirect_header("index.php?op=reg_form", "密碼不一致!");
+    exit;
   }
   $_POST['pass']  = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+  $_POST['token']  = password_hash($_POST['uname'], PASSWORD_DEFAULT);
   #寫入資料庫
-  $sql = "INSERT INTO `user` (`uname`, `pass`, `name`, `tel`, `email`)
-  VALUES ('{$_POST['uname']}', '{$_POST['pass']}', '{$_POST['name']}', '{$_POST['tel']}', '{$_POST['email']}');";
+  $sql = "INSERT INTO `user` (`uname`, `pass`, `name`, `tel`, `email`, `token`)
+  VALUES ('{$_POST['uname']}', '{$_POST['pass']}', '{$_POST['name']}', '{$_POST['tel']}', '{$_POST['email']}', '{$_POST['token']}');";
   $db -> query($sql) or die($db -> error . $sql);
   $uid = $db ->insert_id;
   return $uid;
-}
-/*############################################
-  轉向函數
-############################################*/
-function redirect_header($url, $message , $time) { //redirect_header(回到網址,出現訊息,出現時間)
-  $_SESSION['redirect'] = true;
-  $_SESSION['message'] = $message;
-  $_SESSION['time'] = $time;
-  header("location:{$url}");
 }
