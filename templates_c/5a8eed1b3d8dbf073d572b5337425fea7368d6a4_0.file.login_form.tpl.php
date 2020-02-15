@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-14 09:22:18
+/* Smarty version 3.1.34-dev-7, created on 2020-02-15 02:48:27
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\login_form.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e4658ba654d08_42719689',
+  'unifunc' => 'content_5e474debd0d9b4_61562223',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5a8eed1b3d8dbf073d572b5337425fea7368d6a4' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\login_form.tpl',
-      1 => 1581667579,
+      1 => 1581731285,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e4658ba654d08_42719689 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e474debd0d9b4_61562223 (Smarty_Internal_Template $_smarty_tpl) {
 ?><style>
 .form-signin {
     width: 100%;
@@ -30,7 +30,7 @@ function content_5e4658ba654d08_42719689 (Smarty_Internal_Template $_smarty_tpl)
 }
 </style>
 <div class="container" style="margin-top: 70px;">
-    <form class="form-signin" action="user.php" method="post">
+    <form class="form-signin" action="index.php" method="post">
         <h1 class="h3 mb-3 font-weight-normal">會員登入</h1>
         <div class="mb-3">
         <label for="name" class="sr-only">帳號</label>

@@ -47,8 +47,8 @@
 
   <{else if $op == "login_form"}>
 
-    <{* user.tpl *}>
-    <{include file="user.tpl"}>
+    <{* admin.tpl *}>
+    <{include file="tpl/login_form.tpl"}>
     
   <{else if $op == "reg_form"}>
 

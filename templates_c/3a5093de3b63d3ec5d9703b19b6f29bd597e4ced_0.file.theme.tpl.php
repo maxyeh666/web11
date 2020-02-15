@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-14 09:14:13
+/* Smarty version 3.1.34-dev-7, created on 2020-02-15 04:13:28
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\theme.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e4656d55bc5d6_85037228',
+  'unifunc' => 'content_5e4761d8d455a5_92735961',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a5093de3b63d3ec5d9703b19b6f29bd597e4ced' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\theme.tpl',
-      1 => 1581667849,
+      1 => 1581736399,
       2 => 'file',
     ),
   ),
@@ -23,13 +23,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/head.tpl' => 1,
     'file:tpl/contact_form.tpl' => 1,
     'file:tpl/ok.tpl' => 1,
-    'file:user.tpl' => 1,
+    'file:tpl/login_form.tpl' => 1,
     'file:tpl/reg_form.tpl' => 1,
     'file:tpl/body.tpl' => 1,
     'file:tpl/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5e4656d55bc5d6_85037228 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e4761d8d455a5_92735961 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +82,7 @@ css/creative.min.css" rel="stylesheet">
 
   <?php } elseif ($_smarty_tpl->tpl_vars['op']->value == "login_form") {?>
 
-        <?php $_smarty_tpl->_subTemplateRender("file:user.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+        <?php $_smarty_tpl->_subTemplateRender("file:tpl/login_form.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
     
   <?php } elseif ($_smarty_tpl->tpl_vars['op']->value == "reg_form") {?>
