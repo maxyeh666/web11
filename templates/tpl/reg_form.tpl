@@ -1,7 +1,7 @@
 <div class="container" style="margin-top: 70px;">
     <h1 class="text-center text-primary">註冊表單</h1>
     
-    <form action="index.php" method="post" id="myForm" class="mb-20" enctype="multipart/form-data">
+    <form action="index.php" method="post" id="myForm" class="mb-2" enctype="multipart/form-data">
     
     <div class="row">
         <!--帳號-->              
