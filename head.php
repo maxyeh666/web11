@@ -32,12 +32,45 @@ require_once _WEB_PATH.'/sqlConfig.php';
 #引入設定檔
 require_once _WEB_PATH . '/function.php';
 
-$_SESSION['admin'] = isset($_SESSION['admin']) ? $_SESSION['admin'] : false; //使用三元運算式來判斷admin的值,若有則帶入值,若無則預設為false
-if(!$_SESSION['admin']){  //若session裡admin的值為true,進行下列程式
-  $_COOKIE['token'] = isset($_COOKIE['token']) ? $_COOKIE['token'] : "";  //設定cookie的token值
-  $_COOKIE['name'] = isset($_COOKIE['name']) ? $_COOKIE['name'] : ""; //設定cookie的name值
-  if($_COOKIE['name'] == "admin" and $_COOKIE['token'] == "xxxxxx"){  //判斷cookie裡面name 與token的值是否為admin
-    $_SESSION['admin'] = true;  //符合條件則為'admin'=管理員
+$SESSION['admin']=""; 
+
+$_SESSION['user']['kind'] = isset($_SESSION['user']['kind']) ? $_SESSION['user']['kind'] : ""; //使用三元運算式來判斷session的值,若有則帶入值,若無則預設為空值
+
+# 為了cookie使用
+if($_SESSION['user']['kind'] === ""){
+  $_COOKIE['token'] = isset($_COOKIE['token']) ? $_COOKIE['token'] : "";
+  $_COOKIE['uname'] = isset($_COOKIE['uname']) ? $_COOKIE['uname'] : "";
+  
+  $_COOKIE['uname'] = db_filter($_COOKIE['uname'], '');
+  $_COOKIE['token'] = db_filter($_COOKIE['token'], '');
+  
+  if($_COOKIE['uname'] &&  $_COOKIE['token']){
+    $sql="SELECT *
+          FROM `users`
+          WHERE `uname` = '{$_COOKIE['uname']}'
+    ";
+  
+    $result = $db->query($sql);
+    $row = $result->fetch_assoc();
+  
+    if($_COOKIE['token'] === $row['token']){
+      
+      $row['uname'] = htmlspecialchars($row['uname']);//字串
+      $row['uid'] = (int)$row['uid'];//整數
+      $row['kind'] = (int)$row['kind'];//整數
+      $row['name'] = htmlspecialchars($row['name']);//字串
+      $row['tel'] = htmlspecialchars($row['tel']);//字串
+      $row['email'] = htmlspecialchars($row['email']);//字串 
+      $row['pass'] = htmlspecialchars($row['pass']);//字串 
+      $row['token'] = htmlspecialchars($row['token']);//字串
+      
+      $_SESSION['user']['uid'] = $row['uid'];
+      $_SESSION['user']['uname'] = $row['uname'];
+      $_SESSION['user']['name'] = $row['name'];
+      $_SESSION['user']['tel'] = $row['tel'];
+      $_SESSION['user']['email'] = $row['email'];
+      $_SESSION['user']['kind'] = $row['kind'];
+    }
   }
 }
 

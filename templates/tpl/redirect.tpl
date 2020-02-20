@@ -12,6 +12,6 @@
         showConfirmButton: false,
         timer: <{$time}>
     })
-    }    
+    }
 </script>
 <{/if}>

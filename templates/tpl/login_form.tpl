@@ -13,8 +13,8 @@
         <label for="name" class="sr-only">帳號</label>
         <input
             type="text"
-            name="name"
-            id="name"
+            name="uname"
+            id="uname"
             class="form-control"
             placeholder="請輸入帳號"
             required

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-19 10:12:39
+/* Smarty version 3.1.34-dev-7, created on 2020-02-20 03:50:39
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e4cfc0773f5c1_18785128',
+  'unifunc' => 'content_5e4df3ffb249d2_51988063',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '61ef7d778bc4d895fe97b4801f86276ce7150066' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\user.tpl',
-      1 => 1582103556,
+      1 => 1582166925,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e4cfc0773f5c1_18785128 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- Font Awesome Icons -->
+function content_5e4df3ffb249d2_51988063 (Smarty_Internal_Template $_smarty_tpl) {
+?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+class/sweetalert2/sweetalert2.css">
+<?php echo '<script'; ?>
+ src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
+>
+<!-- Font Awesome Icons -->
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
@@ -55,6 +61,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
                 <td>
                     <a href="user.php?op=op_form&uid=<?php echo $_smarty_tpl->tpl_vars['row']->value['uid'];?>
 "><i class="fas fa-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="op_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['uid'];?>
+);"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
         <?php
@@ -129,20 +137,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </div>
                 </div> 
             </div>
-            <!-- <div class="row"> -->
-                <div class="text-center pb-20 col-sm-6">
-                    <input type="hidden" name="op" value="op_update">
-                    <input type="hidden" name="uid" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['uid'];?>
+            <div class="text-center pb-20">
+                <input type="hidden" name="op" value="op_update">
+                <input type="hidden" name="uid" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['uid'];?>
 ">
-                    <button type="submit" class="btn btn-primary">送出</button>
-                </div>
-                <!-- <div class="text-center pb-20 col-sm-6">
-                    <input type="hidden" name="op" value="op_form">
-                    <button type="submit" class="btn btn-primary">取消</button>
-                </div>
-            </div> -->
-            
-        
+                <button type="submit" class="btn btn-primary">送出</button>
+            </div>
+
         </form>
         <!-- 表單驗證 -->
         <?php echo '<script'; ?>
@@ -199,6 +200,27 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 >
         
     </div>
-<?php }
-}
+<?php }?>
+
+<!-- 刪除小視窗 -->
+<?php echo '<script'; ?>
+>        
+    function op_delete(uid){
+        Swal.fire({
+            title: '你確定嗎？',
+            text: "您將無法還原！",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '是的，刪除它！'
+        }).then((result) => {
+            if (result.value) {
+                //確定要刪除的動作
+                document.location.href="user.php?op=op_delete&uid="+uid;
+            }
+        })
+    }        
+<?php echo '</script'; ?>
+><?php }
 }

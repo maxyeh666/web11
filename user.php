@@ -3,7 +3,7 @@
 require_once 'head.php';
 
 #權限檢查
-if(!$_SESSION['admin'])redirect_header("index.php", '您沒有權限', 3000);
+if(!$_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限', 3000);
 
 /* 過濾變數，設定預設值 */
 $op = system_CleanVars($_REQUEST, 'op', 'op_list', 'string');
@@ -18,6 +18,11 @@ switch ($op){
 
   case "op_update" :
     $msg = op_update($uid);
+    redirect_header("user.php", $msg, 3000);
+    exit;
+
+  case "op_delete" :
+    $msg = op_delete($uid);
     redirect_header("user.php", $msg, 3000);
     exit;
 
@@ -108,4 +113,16 @@ function op_list(){
     $rows[] = $row;
   }
   $smarty -> assign("rows",$rows);
+}
+
+/*=======================
+刪除會員函式
+=======================*/
+function op_delete($uid){
+  global $db;
+  $sql="DELETE FROM `users`
+        WHERE `uid` = '{$uid}';
+  ";
+  $db->query($sql) or die($db->error() . $sql);
+  return "會員刪除成功";
 }

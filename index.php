@@ -61,29 +61,67 @@ function ok(){
 }
 
 function login(){
-  global $smarty;
-  $name="admin";
-  $pass="666666";
-  $token="xxxxxx";
+  global $db;
 
-  if($name == $_POST['name'] and $pass == $_POST['pass']){  //製作session來進行短暫記憶管理員的帳號密碼
-    $_SESSION['admin'] = true;  //判斷是否為管理員
+  $_POST['uname'] = db_filter($_POST['uname'], '帳號');
+  $_POST['pass'] = db_filter($_POST['pass'], '密碼');
+
+  $sql="SELECT *
+        FROM `users`
+        WHERE `uname` = '{$_POST['uname']}'";
+
+  $result = $db->query($sql) or die($db->error() . $sql);
+  $row = $result->fetch_assoc() or redirect_header("index.php", "帳號輸入錯誤" , 3000);//先判斷帳號是否正確
+
+  //資料過濾
+  $row['uname'] = htmlspecialchars($row['uname']);//字串
+  $row['uid'] = (int)$row['uid'];//整數
+  $row['kind'] = (int)$row['kind'];//整數
+  $row['name'] = htmlspecialchars($row['name']);//字串
+  $row['tel'] = htmlspecialchars($row['tel']);//字串
+  $row['email'] = htmlspecialchars($row['email']);//字串 
+  $row['pass'] = htmlspecialchars($row['pass']);//字串 
+  $row['token'] = htmlspecialchars($row['token']);//字串
+
+  //登入成功則將資料放入session以便其他頁面驗證,若否則清空session
+  if(password_verify($_POST['pass'], $row['pass'])){
+    //登入成功
+    $_SESSION['user']['uid'] = $row['uid'];
+    $_SESSION['user']['uname'] = $row['uname'];
+    $_SESSION['user']['name'] = $row['name'];
+    $_SESSION['user']['tel'] = $row['tel'];
+    $_SESSION['user']['email'] = $row['email'];
+    $_SESSION['user']['kind'] = $row['kind'];
+    
     $_POST['remember'] = isset($_POST['remember']) ? $_POST['remember'] : "";
     
     if($_POST['remember']){ //當判斷remember(記住我)方塊勾選時,進行下列動作
-      setcookie("name", $name, time()+ 3600 * 24 * 365); //將name寫入cookie,有效時間60(秒)*60(分)*24(小時)*365(天)
-      setcookie("token", $token, time()+ 3600 * 24 * 365); //將token寫入cookie,有效時間60(秒)*60(分)*24(小時)*365(天)
+      //將資料寫入cookie
+      setcookie("uname",$row['uname'], time()+ 3600 * 24 * 365); //將name寫入cookie,有效時間60(秒)*60(分)*24(小時)*365(天)
+      setcookie("token",$row['token'], time()+ 3600 * 24 * 365); //將token寫入cookie,有效時間60(秒)*60(分)*24(小時)*365(天)
     }
-
-    return "登入成功!";
-    }else{      
-    return "登入失敗!";
-}
+    return "登入成功";
+  }else{    
+    $_SESSION['user']['uid'] = "";
+    $_SESSION['user']['uname'] = "";
+    $_SESSION['user']['name'] = "";
+    $_SESSION['user']['tel'] = "";
+    $_SESSION['user']['email'] = "";
+    $_SESSION['user']['kind'] = "";
+    return "登入失敗";
+  }
 }
 
 function logout(){  //登出的函數設定
-  $_SESSION['admin'] = "";  //登出時將admin變回空白值
-  setcookie("name","",time() - 3600 * 24 * 365);  //將cookie裡面的name值與時間都清除
+  //logout時將session的資料清空
+  $_SESSION['user']['uid'] = "";
+  $_SESSION['user']['uname'] = "";
+  $_SESSION['user']['name'] = "";
+  $_SESSION['user']['tel'] = "";
+  $_SESSION['user']['email'] = "";
+  $_SESSION['user']['kind'] = "";
+  //清除cookie裡面的資料
+  setcookie("uname","",time() - 3600 * 24 * 365);  //將cookie裡面的name值與時間都清除
   setcookie("token","",time() - 3600 * 24 * 365); //將cookie裡面的token值與時間都清除
 }
 
