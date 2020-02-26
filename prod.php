@@ -51,9 +51,9 @@ function op_insert($sn=""){
     $_POST['content'] = db_filter($_POST['content'], '');//內容
 
     $_POST['date'] = db_filter($_POST['date'], '');//建立日期
-    $_POST['date'] = strtotime($_POST['date'], '');//建立日期(轉換格式)
+    $_POST['date'] = strtotime($_POST['date']);//建立日期(轉換格式)
 
-    $_POST['srot'] = db_filter($_POST['srot'], '');//排序
+    $_POST['sort'] = db_filter($_POST['sort'], '');//排序
     $_POST['counter'] = db_filter($_POST['counter'], '');//計數
 
     if($sn){    
@@ -77,15 +77,15 @@ function op_insert($sn=""){
             $sub_dir = "/".$kind;
             $sort = 1;
 
-            # 過濾變數
+            #過濾變數
             $_FILES['prod']['name'] = db_filter($_FILES['prod']['name'], '');
             $_FILES['prod']['type'] = db_filter($_FILES['prod']['type'], '');
             $_FILES['prod']['size'] = db_filter($_FILES['prod']['size'], '');
 
-            # 檢查資料目錄
+            #檢查資料目錄
             mk_dir(_WEB_PATH . "/uploads");
-            md_dir(_WEB_PTAH . "/uploads" . $sub_dir);
-            $path = _WEB_PTAH . "/uploads" . $sub_dir . "/";
+            mk_dir(_WEB_PATH . "/uploads" . $sub_dir);
+            $path = _WEB_PATH . "/uploads" . $sub_dir . "/";
 
             # 將圖片進行亂數命名
             $rand = substr(md5(uniqid(mt_rand(), 1)), 0, 5);//取得一個5碼亂數
@@ -107,10 +107,9 @@ function op_insert($sn=""){
             # 將檔案移至指定位置
             if(move_uploaded_file($_FILES['prod']['tmp_name'], $path . $file_name)){
                 $sql="INSERT INTO `files` 
-                    (`kind`, `col_sn`, `sort`, `file_kind`, `file_name`, `file_type`, `file_size`, `description`, `counter`, `name`, `download_name`, `sub_dir`) 
-                    VALUES 
-                    ('{$kind}', '{$sn}', '{$sort}', '{$file_kind}', '{$_FILES['prod']['name']}', '{$_FILES['prod']['type']}', '{$_FILES['prod']['size']}', NULL, '0', '{$file_name}', '', '{$sub_dir}')
-                ";
+                        (`kind`, `col_sn`, `sort`, `file_kind`, `file_name`, `file_type`, `file_size`, `description`, `counter`, `name`, `download_name`, `sub_dir`) 
+                        VALUES 
+                        ('{$kind}', '{$sn}', '{$sort}', '{$file_kind}', '{$_FILES['prod']['name']}', '{$_FILES['prod']['type']}', '{$_FILES['prod']['size']}', NULL, '0', '{$file_name}', '', '{$sub_dir}')";
                 $db->query($sql) or die($db->error() . $sql);
             }
             } 
@@ -121,7 +120,7 @@ function op_insert($sn=""){
     return $msg;
 }
 
-function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url="true"){
+function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
     global $db; 
     $sql="SELECT *
         FROM `files`
