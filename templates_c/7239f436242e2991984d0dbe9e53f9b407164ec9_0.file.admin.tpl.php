@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-15 06:55:18
+/* Smarty version 3.1.34-dev-7, created on 2020-02-26 13:54:15
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e4787c66a1906_56413018',
+  'unifunc' => 'content_5e560807379ea7_62231312',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1581746015,
+      1 => 1582696452,
       2 => 'file',
     ),
   ),
@@ -21,9 +21,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/head_js.tpl' => 1,
     'file:tpl/redirect.tpl' => 1,
     'file:tpl/user.tpl' => 1,
+    'file:tpl/prod.tpl' => 1,
   ),
 ),false)) {
-function content_5e4787c66a1906_56413018 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e560807379ea7_62231312 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,12 +54,15 @@ bootstrap/bootstrap.min.css">
             <?php if ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "user.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/user.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "prod.php") {?>
+                <?php $_smarty_tpl->_subTemplateRender("file:tpl/prod.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
             <?php }?>
         </div>
         <div class="col-sm-3">
             <button type="button" class="btn btn-primary">
                 管理員控制項目
-                <span class="badge badge-light">!</span>
+                <span class="badge badge-warning">!</span>
             </button>
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
@@ -68,6 +72,12 @@ bootstrap/bootstrap.min.css">
                     </li>
                     <li class="list-group-item">
                         <a href="http://localhost/adminer/adminer.php" target="_blank">資料庫介面</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="prod.php" class="btn-block">商品管理</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="user.php" class="btn-block">會員管理</a>
                     </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>

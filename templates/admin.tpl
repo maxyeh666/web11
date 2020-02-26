@@ -25,12 +25,14 @@
         <div class="col-sm-9">
             <{if $WEB.file_name == "user.php"}>
                 <{include file="tpl/user.tpl"}>
+            <{elseif $WEB.file_name == "prod.php"}>
+                <{include file="tpl/prod.tpl"}>
             <{/if}>
         </div>
         <div class="col-sm-3">
             <button type="button" class="btn btn-primary">
                 管理員控制項目
-                <span class="badge badge-light">!</span>
+                <span class="badge badge-warning">!</span>
             </button>
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
@@ -40,6 +42,12 @@
                     </li>
                     <li class="list-group-item">
                         <a href="http://localhost/adminer/adminer.php" target="_blank">資料庫介面</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="prod.php" class="btn-block">商品管理</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="user.php" class="btn-block">會員管理</a>
                     </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>

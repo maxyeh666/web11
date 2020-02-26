@@ -47,7 +47,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                     <label>帳號<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="uname" id="uname" value="<{$row.uname}>">
+                    <input type="text" class="form-control" name="uname" id="uname" value="<{$row.uname}>" readonly> 
                     </div>
                 </div>         
                 <!--密碼-->              

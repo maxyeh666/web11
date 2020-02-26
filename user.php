@@ -3,7 +3,7 @@
 require_once 'head.php';
 
 #權限檢查
-if(!$_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限', 3000);
+if($_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限', 3000);
 
 /* 過濾變數，設定預設值 */
 $op = system_CleanVars($_REQUEST, 'op', 'op_list', 'string');
