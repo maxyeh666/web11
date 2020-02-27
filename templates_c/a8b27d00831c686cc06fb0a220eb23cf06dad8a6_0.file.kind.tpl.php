@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-26 15:55:16
-  from 'E:\xampp\htdocs\web11\templates\tpl\prod.tpl' */
+/* Smarty version 3.1.34-dev-7, created on 2020-02-27 17:20:46
+  from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\kind.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5686d4e2f404_53708651',
+  'unifunc' => 'content_5e5789ee0fad47_40268121',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '328ed8edb60bfa8ee177c8907ef234a5b51f54a3' => 
+    'a8b27d00831c686cc06fb0a220eb23cf06dad8a6' => 
     array (
-      0 => 'E:\\xampp\\htdocs\\web11\\templates\\tpl\\prod.tpl',
-      1 => 1582728904,
+      0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\kind.tpl',
+      1 => 1582795243,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5686d4e2f404_53708651 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5789ee0fad47_40268121 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
@@ -31,60 +31,54 @@ class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
-<table class="table table-striped table-bordered table-hover table-sm">
-    <thead>
-        <tr>
-            <th scope="col">標題</th>
-            <th scope="col">分類</th>
-            <th scope="col" class="text-right">價格</th>
-            <th scope="col" class="text-center">狀態</th>
-            <th scope="col" class="text-right">計數</th>
-            <th scope="col" class="text-center">
-                <a href="?op=op_form"><i class="far fa-plus-square"></i>新增</a></th>
+    <table class="table table-striped table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th scope="col">標題</th>
+                <th scope="col" class="text-center">狀態</th>
+                <th scope="col" class="text-center">
+                    <a href="?op=op_form"><i class="far fa-plus-square"></i>新增</a>
+                </th>
             </tr>
-    </thead>
-    <tbody>
-        <?php
+        </thead>
+        <tbody>
+            <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rows']->value, 'row');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
 ?>
-            <tr>
-                <td><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+                <tr>
+                    <td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 </td>
-                <td><?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
-</td>
-                <td class="text-right"><?php echo $_smarty_tpl->tpl_vars['row']->value['price'];?>
-</td>
-                <td class="text-center"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
-                <td class="text-right"><?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
-</td>
-                <td class="text-center">
-                    <a href="?op=op_form&sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
-"><i class="fas fa-edit"></i></a>
-                    <a href="javascript:void(0)" onclick="op_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
+                    <td class="text-center"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
+                    <td class="text-center">
+                        <a href="?op=op_form&kind=<?php echo $_smarty_tpl->tpl_vars['row']->value['kind'];?>
+&sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
+"><i class="far fa-edit"></i></a>
+                        <a href="javascript:void(0)" onclick="op_delete('<?php echo $_smarty_tpl->tpl_vars['row']->value['kind'];?>
+',<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 );"><i class="far fa-trash-alt"></i></a>
-                </td>
-            </tr>
-        <?php
+                    </td>
+                </tr>
+            <?php
 }
 } else {
 ?>
-            <tr>
-                <td colspan=6>目前沒有資料</td>
-            </tr>
-        <?php
+                <tr>
+                    <td colspan=6>目前沒有資料</td>
+                </tr>
+            <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 <?php }?>
 
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_form") {?>
     <div class="container">
         <h1 class="text-center">商品管理表單</h1>
         
-        <form action="prod.php" method="post" id="myForm" class="mb-2" enctype="multipart/form-data">
+        <form action="kind.php" method="post" id="myForm" class="mb-2" enctype="multipart/form-data">
         
             <div class="row">         
                 <!--商品標題-->              
@@ -95,14 +89,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ">
                     </div>
                 </div>         
-                <!--商品分類-->              
-                <div class="col-sm-4">
-                    <div class="form-group">
-                    <label>商品分類</label>
-                    <input type="text" class="form-control" name="kind_sn" id="kind_sn" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
-">
-                    </div>
-                </div>
                 <!-- 商品狀態  -->
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -112,24 +98,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <input type="radio" name="enable" id="enable_0" value="0" <?php if ($_smarty_tpl->tpl_vars['row']->value['enable'] == '0') {?>checked<?php }?>>
                         <label for="enable_0" style="display:inline;">停用</label>
                     </div>
-                </div>  
-                <!--價格-->              
-                <div class="col-sm-3">
-                    <div class="form-group">
-                    <label>價格<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="price" id="price" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['price'];?>
-">
-                    </div>
-                </div>         
-                <!--建立日期-->              
-                <div class="col-sm-3">
-                    <div class="form-group">
-                    <label>建立日期<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="date" id="date" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['date'];?>
-" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-                    >
-                    </div>
-                </div>             
+                </div>          
                 <!--排序-->              
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -138,41 +107,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ">
                     </div>
                 </div> 
-                <!--計數-->              
-                <div class="col-sm-3">
-                    <div class="form-group">
-                    <label>計數</label>
-                    <input type="text" class="form-control" name="counter" id="counter" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
-">
-                    </div>
-                </div> 
-                <!--圖片上傳-->              
-                <div class="col-sm-6">
-                    <label>圖片</label>
-                    <input type="file" class="form-control" name="prod" id="prod">
-                    <label class="mt-1">
-                        <?php if ($_smarty_tpl->tpl_vars['row']->value['prod']) {?>
-                            <img src="<?php echo $_smarty_tpl->tpl_vars['row']->value['prod'];?>
-" alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
-" class="img-fluid">
-                        <?php }?>
-                    </label>
-                </div> 
-            </div>
-            <div class="row">
-                <div class="col-sm-12">  
-                    <!-- 商品內容 -->
-                    <div class="form-group">
-                        <label class="control-label">商品內容</label>
-                        <textarea class="form-control" rows="4" id="content" name="content"><?php echo $_smarty_tpl->tpl_vars['row']->value['content'];?>
-</textarea>
-                    </div>
-                </div>
             </div>
             <div class="text-center pb-20">
                 <input type="hidden" name="op" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['op'];?>
 ">
                 <input type="hidden" name="sn" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
+">
+                <input type="hidden" name="kind" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['kind'];?>
 ">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
@@ -227,7 +168,7 @@ class/My97DatePicker/WdatePicker.js'><?php echo '</script'; ?>
 <!-- 刪除小視窗 -->
 <?php echo '<script'; ?>
 >        
-    function op_delete(sn){
+    function op_delete(kind,sn){
         Swal.fire({
             title: '你確定嗎？',
             text: "您將無法還原！",
@@ -239,7 +180,7 @@ class/My97DatePicker/WdatePicker.js'><?php echo '</script'; ?>
         }).then((result) => {
             if (result.value) {
                 //確定要刪除的動作
-                document.location.href="user.php?op=op_delete&sn="+sn;
+                document.location.href="kind.php?op=op_delete&kind=" + kind +"&sn=" + sn;
             }
         })
     }        

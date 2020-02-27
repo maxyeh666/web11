@@ -12,24 +12,29 @@ $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
 
 /* 程式流程 */
 switch ($op){
-  case "op_form" :
-    $msg = op_form($sn);
-    break;
+    case "op_form" :
+        $msg = op_form($sn);
+        break;
 
-  case "op_insert" :
-    $msg = op_insert();
-    redirect_header("prod.php", $msg, 3000);
-    exit;
+    case "op_insert" :
+        $msg = op_insert();
+        redirect_header("prod.php", $msg, 3000);
+        exit;
 
-  case "op_delete" :
-    $msg = op_delete($sn);
-    redirect_header("user.php", $msg, 3000);
-    exit;
+    case "op_update" :
+        $msg = op_insert($sn);
+        redirect_header("prod.php", $msg, 3000);
+        exit;
 
-  default:
-    $op = "op_list";
-    op_list();
-    break;  
+    case "op_delete" :
+        $msg = op_delete($sn);
+        redirect_header("prod.php", $msg, 3000);
+        exit;
+
+    default:
+        $op = "op_list";
+        op_list();
+        break;  
 }
 
 /*---- 將變數送至樣版----*/
@@ -43,6 +48,7 @@ $smarty->display('admin.tpl');
 function op_insert($sn=""){
     global $db; 
 
+    //資料過濾
     $_POST['sn'] = db_filter($_POST['sn'], '');//流水號
     $_POST['kind_sn'] = db_filter($_POST['kind_sn'], '');//分類
     $_POST['title'] = db_filter($_POST['title'], '標題');//標題(必填)
@@ -57,7 +63,18 @@ function op_insert($sn=""){
     $_POST['counter'] = db_filter($_POST['counter'], '');//計數
 
     if($sn){    
-
+        $sql="UPDATE  `prods` SET
+        `kind_sn` = '{$_POST['kind_sn']}',
+        `title` = '{$_POST['title']}',
+        `content` = '{$_POST['content']}',
+        `price` = '{$_POST['price']}',
+        `enable` = '{$_POST['enable']}',
+        `date` = '{$_POST['date']}',
+        `sort` = '{$_POST['sort']}',
+        `counter` = '{$_POST['counter']}'
+        WHERE `sn` = '{$_POST['sn']}'";
+        $db->query($sql) or die($db->error() . $sql);
+        $msg = "商品資料更新成功";
     }
     else{
         $sql="INSERT INTO `prods` 
@@ -71,6 +88,14 @@ function op_insert($sn=""){
     }
 
     if ($_FILES['prod']['name']){
+        $kind = "prod";
+        #刪除舊圖
+        # 1.刪除實體檔案
+        # 2.刪除files資料表
+        delFilesByKindColsnSort($kind,$sn,1);
+
+        //delFilesByKindColsnSort($kind,$sn,1);
+        
         if ($_FILES['prod']['error'] === UPLOAD_ERR_OK){
             
             $kind = "prod";
@@ -125,7 +150,7 @@ function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
     $sql="SELECT *
         FROM `files`
         WHERE `kind` = '{$kind}' AND `col_sn` = '{$col_sn}' AND `sort` = '{$sort}'
-    ";     
+        ";     
     $result = $db->query($sql) or die($db->error() . $sql);
     $row = $result->fetch_assoc();
     if($url){
@@ -136,33 +161,75 @@ function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
     return $file_name;
 }
 
+function delFilesByKindColsnSort($kind,$col_sn,$sort){
+    global $db;
+    # 1.刪除實體檔案
+    $file_name = getFilesByKindColsnSort($kind,$col_sn,$sort,false);
+    if($file_name){
+        unlink($file_name);
+    }
+    # 2.刪除files資料表	
+    $sql="DELETE FROM `files`
+        WHERE `kind` = '{$kind}' AND `col_sn` = '{$col_sn}' AND `sort` = '{$sort}'
+    ";
+    $db->query($sql) or die($db->error() . $sql);	
+    return;
+}
+
+/*--- 利用sn取得單筆資料 ---*/
+function getProdsBysn($sn){
+    global $db;
+    global $db;
+    $sql="SELECT *
+          FROM `prods`
+          WHERE `sn` = '{$sn}'";//die($sql);
+    
+    $result = $db->query($sql) or die($db->error() . $sql);
+    $row = $result->fetch_assoc();
+    $row['prod'] = getFilesByKindColsnSort("prod",$sn);
+    return $row;
+}
+
+/*--- 取得商品類別選項 ---*/
+function getProdsOptions($kind){
+
+
+    $result = $db->query($sql) or die($db->error() . $sql);
+    $rows = [];
+    while($row=$result->fetch_assoc()){
+    #驗證程序
+    $row['sn'] = (int)$row['sn'];//分類
+    $row['title'] = htmlspecialchars($row['title']);//標題
+    $rows[] = $row;
+    }
+    return $rows;
+}
+
 function op_form($sn=""){
     global $smarty,$db;
 
     if($sn){
-    $sql="SELECT *
-          FROM `prods`
-          WHERE `sn` = '{$sn}'
-    ";//die($sql);
-    
-    $result = $db->query($sql) or die($db->error() . $sql);
-    $row = $result->fetch_assoc(); 
-    $row['op']="op_update";
-    $row['prod'] = getFilesByKindColsnSort("prod",$sn);
-    }
-    else{
-    $row['op']="op_insert";
-    $row['prod'] = "";
+        $row = getProdsBySn($sn);
+        $row['op'] = "op_update";
+    }else{
+    $row['op'] = "op_insert";
     }
     $row['sn'] = isset($row['sn']) ? $row['sn'] : "";
     $row['kind_sn'] = isset($row['kind_sn']) ? $row['kind_sn'] : "1";
+    $row['kind_sn_options'] = getProdsOptions("prod"); //取得(select)商品的類別
+
     $row['title'] = isset($row['title']) ? $row['title'] : "";
     $row['content'] = isset($row['content']) ? $row['content'] : "";
     $row['price'] = isset($row['price']) ? $row['price'] : "";
     $row['enable'] = isset($row['enable']) ? $row['enable'] : "1";
-    $row['date'] = isset($row['date']) ? date("Y-m-d H:i:s",strtotime($row['date'])) : date("Y-m-d H:i:s",strtotime("now")); //strtotime()取得時間(秒數),用date重新更改格式
+
+    $row['date'] = isset($row['date']) ? $row['date'] : strtotime("now");   //取得row[date](=日期),若沒有則利用strtotiem()取得現在時間放入row[date]
+    $row['date'] = date("Y-m-d H:i:ss",$row['date']);   //將時間格式轉換為 年/月/日 時/分/秒
+
     $row['sort'] = isset($row['sort']) ? $row['sort'] : "";
     $row['counter'] = isset($row['counter']) ? $row['counter'] : "";
+
+    $row['prod'] = isset($row['prod']) ? $row['prod'] : ""; //判斷是否有圖片,若沒有圖片則為空值
 
     $smarty->assign("row",$row);
 }
@@ -182,6 +249,7 @@ function op_list(){
     $row['price'] = (int)$row['price'];//價格
     $row['enable'] = (int)$row['enable'];//狀態
     $row['counter'] = (int)$row['counter'];//計數
+    $row['prod'] = getFilesByKindColsnSort("prod",$row['sn']); 
     $rows[] = $row;
     }
     $smarty -> assign("rows",$rows);
@@ -192,9 +260,15 @@ function op_list(){
 =======================*/
 function op_delete($sn){
     global $db;
+
+    #刪除舊圖
+    # 1.刪除實體檔案
+    # 2.刪除files資料表
+    delFilesByKindColsnSort("prod",$sn,1);
+
+    # 商品資料表刪除
     $sql="DELETE FROM `prods`
-          WHERE `sn` = '{$sn}';
-    ";
+          WHERE `sn` = '{$sn}';";
     $db->query($sql) or die($db->error() . $sql);
     return "會員刪除成功";
 }

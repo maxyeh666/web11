@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-14 07:03:24
+/* Smarty version 3.1.34-dev-7, created on 2020-02-27 11:26:50
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\head_js.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e46382c668d76_11455705',
+  'unifunc' => 'content_5e5736fac70eb2_29493849',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e46382c668d76_11455705 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5736fac70eb2_29493849 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Bootstrap core JavaScript -->
 <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>

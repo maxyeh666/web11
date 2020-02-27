@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-26 13:54:15
+/* Smarty version 3.1.34-dev-7, created on 2020-02-27 15:15:56
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e560807379ea7_62231312',
+  'unifunc' => 'content_5e576cacd24bd6_39339504',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1582696452,
+      1 => 1582787752,
       2 => 'file',
     ),
   ),
@@ -22,9 +22,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/redirect.tpl' => 1,
     'file:tpl/user.tpl' => 1,
     'file:tpl/prod.tpl' => 1,
+    'file:tpl/kind.tpl' => 1,
   ),
 ),false)) {
-function content_5e560807379ea7_62231312 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e576cacd24bd6_39339504 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,6 +58,9 @@ bootstrap/bootstrap.min.css">
             <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "prod.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/prod.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "kind.php") {?>
+                <?php $_smarty_tpl->_subTemplateRender("file:tpl/kind.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?> 
             <?php }?>
         </div>
         <div class="col-sm-3">
@@ -78,6 +82,9 @@ bootstrap/bootstrap.min.css">
                     </li>
                     <li class="list-group-item">
                         <a href="user.php" class="btn-block">會員管理</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="kind.php" class="btn-block">類別管理</a>
                     </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>

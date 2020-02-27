@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-26 16:50:59
+/* Smarty version 3.1.34-dev-7, created on 2020-02-27 13:54:35
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\prod.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5631737d9092_32705602',
+  'unifunc' => 'content_5e57599b91fd19_93150418',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f5e2740ea2700bab95aac2ab810a24ec09f621' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\prod.tpl',
-      1 => 1582706635,
+      1 => 1582782874,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5631737d9092_32705602 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e57599b91fd19_93150418 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
@@ -34,6 +34,7 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
         <tr>
+            <th scope="col" class="text-center">圖片</th>
             <th scope="col">標題</th>
             <th scope="col">分類</th>
             <th scope="col" class="text-right">價格</th>
@@ -50,16 +51,19 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
 ?>
             <tr>
-                <td><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+                <td><img src="<?php echo $_smarty_tpl->tpl_vars['row']->value['prod'];?>
+" alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+" style="width: 100px;"></td> 
+                <td class="align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 </td>
-                <td><?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
+                <td class="align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
 </td>
-                <td class="text-right"><?php echo $_smarty_tpl->tpl_vars['row']->value['price'];?>
+                <td class="text-right align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['price'];?>
 </td>
-                <td class="text-center"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
-                <td class="text-right"><?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
+                <td class="text-center align-middle"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
+                <td class="text-right align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <a href="?op=op_form&sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 "><i class="fas fa-edit"></i></a>
                     <a href="javascript:void(0)" onclick="op_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
@@ -99,6 +103,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="col-sm-4">
                     <div class="form-group">
                     <label>商品分類</label>
+                    <select name="kind_sn" id="kind_sn" class="form-control">
+                        <option>分類1</option>
+                        <option>分類2</option>
+                        <option>分類3</option>
+                        <option>分類4</option>
+                    </select>
                     <input type="text" class="form-control" name="kind_sn" id="kind_sn" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
 ">
                     </div>
@@ -148,23 +158,17 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div> 
                 <!--圖片上傳-->              
                 <div class="col-sm-6">
-                        <div class="form-group">
-                        <label>圖片上傳<span class="text-danger">*</span></label>
-                        <input type="file" accept=".png, .jpg, .jpeg" class="form-control" name="pic" id="pic">
-                        </div>
-                </div> 
-                <!--圖片顯示-->              
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>圖片</label>
-                        <input type="file" class="form-control" name="prod" id="prod">
-                        <label class="mt-1">
-                            <?php if ($_smarty_tpl->tpl_vars['row']->value['prod']) {?>
-                                <img src="<$row.prod>" alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+                    <label>圖片</label>
+                    <input type="file" class="form-control" name="prod" id="prod">
+                    <label class="mt-1">
+                        <?php if ($_smarty_tpl->tpl_vars['row']->value['prod']) {?>
+                            <img src="<?php echo $_smarty_tpl->tpl_vars['row']->value['prod'];?>
+" alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 " class="img-fluid">
-                            <?php }?>
-                        </label>
-                    </div>
+                        <?php } else { ?>
+                            <label>圖片預覽</label>
+                        <?php }?>
+                    </label>
                 </div> 
             </div>
             <div class="row">
@@ -247,7 +251,7 @@ class/My97DatePicker/WdatePicker.js'><?php echo '</script'; ?>
         }).then((result) => {
             if (result.value) {
                 //確定要刪除的動作
-                document.location.href="user.php?op=op_delete&sn="+sn;
+                document.location.href="prod.php?op=op_delete&sn="+sn;
             }
         })
     }        

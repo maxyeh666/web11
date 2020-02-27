@@ -6,6 +6,7 @@
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
         <tr>
+            <th scope="col" class="text-center">圖片</th>
             <th scope="col">標題</th>
             <th scope="col">分類</th>
             <th scope="col" class="text-right">價格</th>
@@ -18,12 +19,13 @@
     <tbody>
         <{foreach $rows as $row}>
             <tr>
-                <td><{$row.title}></td>
-                <td><{$row.kind_sn}></td>
-                <td class="text-right"><{$row.price}></td>
-                <td class="text-center"><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
-                <td class="text-right"><{$row.counter}></td>
-                <td class="text-center">
+                <td><img src="<{$row.prod}>" alt="<{$row.title}>" style="width: 100px;"></td> 
+                <td class="align-middle"><{$row.title}></td>
+                <td class="align-middle"><{$row.kind_sn}></td>
+                <td class="text-right align-middle"><{$row.price}></td>
+                <td class="text-center align-middle"><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
+                <td class="text-right align-middle"><{$row.counter}></td>
+                <td class="text-center align-middle">
                     <a href="?op=op_form&sn=<{$row.sn}>"><i class="fas fa-edit"></i></a>
                     <a href="javascript:void(0)" onclick="op_delete(<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
                 </td>
@@ -55,6 +57,11 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                     <label>商品分類</label>
+                    <select name="kind_sn" id="kind_sn" class="form-control">
+                        <{foreach $row.kind_sn.options as $option}>
+                            <option value="<{$option.sn}>"><{if $option.sn == $row.kind_sn}>selected<{/if}><{$option.title}></option>
+                        <{/foreach}>
+                    </select>
                     <input type="text" class="form-control" name="kind_sn" id="kind_sn" value="<{$row.kind_sn}>">
                     </div>
                 </div>
@@ -104,6 +111,8 @@
                     <label class="mt-1">
                         <{if $row.prod}>
                             <img src="<{$row.prod}>" alt="<{$row.title}>" class="img-fluid">
+                        <{else}>
+                            <label>圖片預覽</label>
                         <{/if}>
                     </label>
                 </div> 
@@ -177,7 +186,7 @@
         }).then((result) => {
             if (result.value) {
                 //確定要刪除的動作
-                document.location.href="user.php?op=op_delete&sn="+sn;
+                document.location.href="prod.php?op=op_delete&sn="+sn;
             }
         })
     }        

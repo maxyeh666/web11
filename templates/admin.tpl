@@ -27,6 +27,8 @@
                 <{include file="tpl/user.tpl"}>
             <{elseif $WEB.file_name == "prod.php"}>
                 <{include file="tpl/prod.tpl"}>
+            <{elseif  $WEB.file_name == "kind.php"}>
+                <{include file="tpl/kind.tpl"}> 
             <{/if}>
         </div>
         <div class="col-sm-3">
@@ -48,6 +50,9 @@
                     </li>
                     <li class="list-group-item">
                         <a href="user.php" class="btn-block">會員管理</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="kind.php" class="btn-block">類別管理</a>
                     </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>

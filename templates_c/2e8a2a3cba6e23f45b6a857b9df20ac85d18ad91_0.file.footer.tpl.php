@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-14 04:10:45
+/* Smarty version 3.1.34-dev-7, created on 2020-02-27 17:11:21
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e460fb5030920_65484547',
+  'unifunc' => 'content_5e5787b994e318_48468490',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e460fb5030920_65484547 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5787b994e318_48468490 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Footer -->
 <footer class="bg-light py-5">
     <div class="container">
