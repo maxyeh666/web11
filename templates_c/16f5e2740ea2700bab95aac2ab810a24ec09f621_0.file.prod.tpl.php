@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-27 13:54:35
+/* Smarty version 3.1.34-dev-7, created on 2020-03-02 16:32:58
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\prod.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e57599b91fd19_93150418',
+  'unifunc' => 'content_5e5cc4ba63d1d0_26454277',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f5e2740ea2700bab95aac2ab810a24ec09f621' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\prod.tpl',
-      1 => 1582782874,
+      1 => 1583137973,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e57599b91fd19_93150418 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5cc4ba63d1d0_26454277 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
@@ -30,6 +30,8 @@ class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 <!-- Font Awesome Icons -->
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
@@ -103,14 +105,20 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="col-sm-4">
                     <div class="form-group">
                     <label>商品分類</label>
-                    <select name="kind_sn" id="kind_sn" class="form-control">
-                        <option>分類1</option>
-                        <option>分類2</option>
-                        <option>分類3</option>
-                        <option>分類4</option>
-                    </select>
-                    <input type="text" class="form-control" name="kind_sn" id="kind_sn" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['kind_sn'];?>
-">
+                        <select name="kind_sn" id="kind_sn" class="form-control">
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['row']->value['kind_sn_options'], 'option');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['option']->value) {
+?>
+                                <option value="<?php echo $_smarty_tpl->tpl_vars['option']->value['sn'];?>
+" <?php if ($_smarty_tpl->tpl_vars['option']->value['sn'] == $_smarty_tpl->tpl_vars['row']->value['kind_sn']) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['option']->value['title'];?>
+</option>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        </select>
                     </div>
                 </div>
                 <!-- 商品狀態  -->
@@ -165,8 +173,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <img src="<?php echo $_smarty_tpl->tpl_vars['row']->value['prod'];?>
 " alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 " class="img-fluid">
-                        <?php } else { ?>
-                            <label>圖片預覽</label>
                         <?php }?>
                     </label>
                 </div> 
@@ -188,7 +194,20 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
-
+            <!-- ckeditor -->
+            <?php echo '<script'; ?>
+ src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+class/ckeditor/ckeditor.js"><?php echo '</script'; ?>
+>
+            <?php echo '<script'; ?>
+>
+                CKEDITOR.replace('content',{
+                    height:300,
+                    contentsCss: ['<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
+css/creative.css'] //引入前台樣板css
+                });
+            <?php echo '</script'; ?>
+>
         </form>
         <!-- 表單驗證 -->
         <?php echo '<script'; ?>

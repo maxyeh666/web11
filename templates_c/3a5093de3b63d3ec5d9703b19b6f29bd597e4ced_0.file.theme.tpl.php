@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-27 17:11:21
+/* Smarty version 3.1.34-dev-7, created on 2020-03-02 11:37:31
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\theme.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5787b9739d54_08634713',
+  'unifunc' => 'content_5e5c7f7bc6a216_93881149',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a5093de3b63d3ec5d9703b19b6f29bd597e4ced' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\theme.tpl',
-      1 => 1581736399,
+      1 => 1583120250,
       2 => 'file',
     ),
   ),
@@ -29,7 +29,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5e5787b9739d54_08634713 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5c7f7bc6a216_93881149 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +100,11 @@ css/creative.min.css" rel="stylesheet">
 <?php $_smarty_tpl->_subTemplateRender("file:tpl/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
+<!-- Custom scripts for this template -->
+<?php echo '<script'; ?>
+ src="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
+js/creative.min.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
-<?php }
+</html><?php }
 }

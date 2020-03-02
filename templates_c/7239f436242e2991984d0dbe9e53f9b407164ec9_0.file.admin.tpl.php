@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-27 15:15:56
+/* Smarty version 3.1.34-dev-7, created on 2020-03-02 14:13:13
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e576cacd24bd6_39339504',
+  'unifunc' => 'content_5e5ca3f93d6b67_73199200',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1582787752,
+      1 => 1583129591,
       2 => 'file',
     ),
   ),
@@ -23,9 +23,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/user.tpl' => 1,
     'file:tpl/prod.tpl' => 1,
     'file:tpl/kind.tpl' => 1,
+    'file:tpl/menu.tpl' => 1,
+    'file:tpl/slide.tpl' => 1,
   ),
 ),false)) {
-function content_5e576cacd24bd6_39339504 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5ca3f93d6b67_73199200 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +63,12 @@ bootstrap/bootstrap.min.css">
             <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "kind.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/kind.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?> 
+            <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "menu.php") {?>
+                <?php $_smarty_tpl->_subTemplateRender("file:tpl/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?> 
+            <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "slide.php") {?>
+                <?php $_smarty_tpl->_subTemplateRender("file:tpl/slide.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?> 
             <?php }?>
         </div>
         <div class="col-sm-3">
@@ -86,6 +94,12 @@ bootstrap/bootstrap.min.css">
                     <li class="list-group-item">
                         <a href="kind.php" class="btn-block">類別管理</a>
                     </li>
+                    <li class="list-group-item">
+                        <a href="menu.php" class="btn-block">選單管理</a>
+                    </li>
+                    <li class="list-group-item">
+                            <a href="slide.php" class="btn-block">輪播圖管理</a>
+                        </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>
                     </li>

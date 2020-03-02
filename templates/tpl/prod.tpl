@@ -2,6 +2,8 @@
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+
 <{if $op == "op_list"}>
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
@@ -57,12 +59,11 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                     <label>商品分類</label>
-                    <select name="kind_sn" id="kind_sn" class="form-control">
-                        <{foreach $row.kind_sn.options as $option}>
-                            <option value="<{$option.sn}>"><{if $option.sn == $row.kind_sn}>selected<{/if}><{$option.title}></option>
-                        <{/foreach}>
-                    </select>
-                    <input type="text" class="form-control" name="kind_sn" id="kind_sn" value="<{$row.kind_sn}>">
+                        <select name="kind_sn" id="kind_sn" class="form-control">
+                            <{foreach $row.kind_sn_options as $option}>
+                                <option value="<{$option.sn}>" <{if $option.sn == $row.kind_sn}>selected<{/if}>><{$option.title}></option>
+                            <{/foreach}>
+                        </select>
                     </div>
                 </div>
                 <!-- 商品狀態  -->
@@ -111,8 +112,6 @@
                     <label class="mt-1">
                         <{if $row.prod}>
                             <img src="<{$row.prod}>" alt="<{$row.title}>" class="img-fluid">
-                        <{else}>
-                            <label>圖片預覽</label>
                         <{/if}>
                     </label>
                 </div> 
@@ -131,7 +130,14 @@
                 <input type="hidden" name="sn" value="<{$row.sn}>">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
-
+            <!-- ckeditor -->
+            <script src="<{$xoAppUrl}>class/ckeditor/ckeditor.js"></script>
+            <script>
+                CKEDITOR.replace('content',{
+                    height:300,
+                    contentsCss: ['<{$xoImgUrl}>css/creative.css'] //引入前台樣板css
+                });
+            </script>
         </form>
         <!-- 表單驗證 -->
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>

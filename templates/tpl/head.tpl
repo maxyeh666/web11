@@ -7,22 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="index.php#about">關於我們</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="index.php#services">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="index.php#portfolio">Portfolio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="index.php#contact">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="index.php?op=contact_form">聯絡我們</a>
-            </li>
+            <!-- 利用迴圈將選單從選單資料庫找出並顯示出來 -->
+            <{foreach $mainMenus as $mainMenu}> 
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="<{$mainMenu.url}>" <{if $mainMenu.target == 1}> target="_blank" <{/if}>><{$mainMenu.title}></a>
+                </li>
+            <{/foreach}>
 
+            <!-- 判斷是否為管理員,並顯示為管理員或一般會員 -->
             <{if $smarty.session.user.kind === 1}>
                 <{*管理員登入顯示*}>
                 <li class="nav-item">

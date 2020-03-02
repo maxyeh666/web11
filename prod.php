@@ -145,38 +145,9 @@ function op_insert($sn=""){
     return $msg;
 }
 
-function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
-    global $db; 
-    $sql="SELECT *
-        FROM `files`
-        WHERE `kind` = '{$kind}' AND `col_sn` = '{$col_sn}' AND `sort` = '{$sort}'
-        ";     
-    $result = $db->query($sql) or die($db->error() . $sql);
-    $row = $result->fetch_assoc();
-    if($url){
-        $file_name = _WEB_URL . "/uploads" . $row['sub_dir'] . "/" . $row['name'];
-    }else{
-        $file_name = _WEB_PATH . "/uploads" . $row['sub_dir'] . "/" . $row['name'];
-    }
-    return $file_name;
-}
-
-function delFilesByKindColsnSort($kind,$col_sn,$sort){
-    global $db;
-    # 1.刪除實體檔案
-    $file_name = getFilesByKindColsnSort($kind,$col_sn,$sort,false);
-    if($file_name){
-        unlink($file_name);
-    }
-    # 2.刪除files資料表	
-    $sql="DELETE FROM `files`
-        WHERE `kind` = '{$kind}' AND `col_sn` = '{$col_sn}' AND `sort` = '{$sort}'
-    ";
-    $db->query($sql) or die($db->error() . $sql);	
-    return;
-}
-
-/*--- 利用sn取得單筆資料 ---*/
+/*===========================
+  用sn取得商品檔資料
+===========================*/
 function getProdsBysn($sn){
     global $db;
     global $db;
@@ -190,9 +161,16 @@ function getProdsBysn($sn){
     return $row;
 }
 
-/*--- 取得商品類別選項 ---*/
+/*===========================
+  取得商品檔類別選項
+===========================*/
 function getProdsOptions($kind){
-
+    global $db;
+    $sql="SELECT `sn`,`title`
+          FROM `kinds`
+          WHERE `kind` = '{$kind}' AND `enable` = '1'
+          ORDER BY `sort`  
+    ";
 
     $result = $db->query($sql) or die($db->error() . $sql);
     $rows = [];
@@ -205,10 +183,24 @@ function getProdsOptions($kind){
     return $rows;
 }
 
+/*================================
+  取得商品數量的最大值
+================================*/
+function getProdsMaxSort(){
+    global $db;
+    $sql = "SELECT count(*)+1 as count
+            FROM `prods`
+    ";//die($sql);
+  
+    $result = $db->query($sql) or die($db->error() . $sql);
+    $row = $result->fetch_assoc();
+    return $row['count'];
+  }
+
 function op_form($sn=""){
     global $smarty,$db;
 
-    if($sn){
+    if($sn){ //判定是否有sn(商品序號),若有則進行商品更新(op_upate),若無則(op_insert)
         $row = getProdsBySn($sn);
         $row['op'] = "op_update";
     }else{

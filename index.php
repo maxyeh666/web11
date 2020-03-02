@@ -42,9 +42,15 @@ switch ($op){
   
   default:
     $op = "op_list";
+    $mainSlides = getMenus("mainSlide",true);
+    $smarty->assign("mainSlides", $mainSlides);
+    
     break;  
 }
-  /*---- 將變數送至樣版----*/
+/*---- 將變數送至樣版----*/
+  $mainMenus = getMenus("mainMenu"); //取得選單項目
+
+  $smarty->assign("mainMenus", $mainMenus); //取得選單項目變數
   $smarty->assign("WEB", $WEB);
   $smarty->assign("op", $op);
 
@@ -58,6 +64,32 @@ function contact_form(){
 
 function ok(){
 
+}
+
+function getMenus($kind,$pic=false){
+  global $db;
+
+  $sql = "SELECT *
+          FROM `kinds`
+          WHERE `kind`='{$kind}' and `enable` = '1'
+          ORDER BY `sort`";
+          
+  //die($sql);
+
+  $result = $db->query($sql) or die($db->error() . $sql);
+  $rows=[];
+  while($row = $result->fetch_assoc()){ 
+      #驗證
+      $row['sn'] = (int)$row['sn'];//流水號
+      $row['title'] = htmlspecialchars($row['title']);//標題
+      $row['enable'] = (int)$row['enable'];//狀態 
+      $row['url'] = htmlspecialchars($row['url']);//網址
+      $row['target'] = (int)$row['target'];//外部連接
+      $row['pic'] = ($pic == true) ? getFilesByKindColsnSort($kind,$row['sn']) :"";//圖片連結
+      $rows[] = $row;
+  }
+  // print_r($rows);die();
+  return $rows;
 }
 
 function login(){

@@ -1,18 +1,52 @@
-<!-- Masthead -->
-<header class="masthead">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center justify-content-center text-center">
-                <div class="col-lg-10 align-self-end">
-                    <h1 class="text-uppercase text-white font-weight-bold">Your Favorite Source of Free Bootstrap Themes</h1>
-                    <hr class="divider my-4">
-                </div>
-                <div class="col-lg-8 align-self-baseline">
-                    <p class="text-white-75 font-weight-light mb-5">Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="index.php#about">Find Out More</a>
+<!-- 輪播圖 -->
+
+<{if $mainSlides}>
+    <!-- 輪播圖CSS -->
+<style>
+.carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+</style>
+
+<!-- 輪播圖HTML -->
+<header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+        <{foreach $mainSlides as $index => $mainSlide}>
+            <li data-target="#carouselExampleIndicators" data-slide-to="<{$index}>" <{if $index == '0'}>class="active" <{/if}> ></li>
+        <{/foreach}>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+        
+        <{foreach $mainSlides as $index => $mainSlide}>
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item <{if $index == '0'}>active <{/if}>" style="background-image: url('<{$mainSlide.pic}>')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="display-4"><{$mainSlide.title}></h2>
                 </div>
             </div>
+        <{/foreach}>
+
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+    </div>
 </header>
+
+<{/if}>
+
 
 <!-- About Section -->
 <section class="page-section bg-primary" id="about">
