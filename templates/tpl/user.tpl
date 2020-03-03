@@ -1,7 +1,13 @@
+<!-- 會員管理介面 -->
+
+
 <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <{if $op == "op_list"}>
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
@@ -61,6 +67,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">會員狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則為管理員,為0則為會員 -->
                         <input type="radio" name="kind" id="kind_1" value="1" <{if $row.kind=='1'}>checked<{/if}>>
                         <label for="kind_1" style="display:inline;">管理員</label>&nbsp;&nbsp;
                         <input type="radio" name="kind" id="kind_0" value="0" <{if $row.kind=='0'}>checked<{/if}>>
@@ -91,6 +98,7 @@
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op與uid的值 -->
                 <input type="hidden" name="op" value="op_update">
                 <input type="hidden" name="uid" value="<{$row.uid}>">
                 <button type="submit" class="btn btn-primary">送出</button>
@@ -163,7 +171,7 @@
             confirmButtonText: '是的，刪除它！'
         }).then((result) => {
             if (result.value) {
-                //確定要刪除的動作
+                //刪除第(uid))筆資料
                 document.location.href="user.php?op=op_delete&uid="+uid;
             }
         })

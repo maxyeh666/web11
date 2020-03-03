@@ -1,3 +1,6 @@
+<!-- 商品管理介面 -->
+
+
 <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
@@ -19,6 +22,7 @@
             </tr>
     </thead>
     <tbody>
+        <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
         <{foreach $rows as $row}>
             <tr>
                 <td><img src="<{$row.prod}>" alt="<{$row.title}>" style="width: 100px;"></td> 
@@ -32,6 +36,7 @@
                     <a href="javascript:void(0)" onclick="op_delete(<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
+        <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
         <{foreachelse}>
             <tr>
                 <td colspan=6>目前沒有資料</td>
@@ -60,6 +65,7 @@
                     <div class="form-group">
                     <label>商品分類</label>
                         <select name="kind_sn" id="kind_sn" class="form-control">
+                            <!-- 從資料庫取得資料,利用迴圈放入下拉式選單 -->
                             <{foreach $row.kind_sn_options as $option}>
                                 <option value="<{$option.sn}>" <{if $option.sn == $row.kind_sn}>selected<{/if}>><{$option.title}></option>
                             <{/foreach}>
@@ -70,6 +76,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">商品狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable=='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
                         <input type="radio" name="enable" id="enable_0" value="0" <{if $row.enable=='0'}>checked<{/if}>>
@@ -126,16 +133,20 @@
                 </div>
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op與sn的值 -->
                 <input type="hidden" name="op" value="<{$row.op}>">
                 <input type="hidden" name="sn" value="<{$row.sn}>">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
+            
             <!-- ckeditor -->
             <script src="<{$xoAppUrl}>class/ckeditor/ckeditor.js"></script>
             <script>
                 CKEDITOR.replace('content',{
-                    height:300,
-                    contentsCss: ['<{$xoImgUrl}>css/creative.css'] //引入前台樣板css
+                    height:500,//高度
+                    contentsCss: ['<{$xoImgUrl}>css/creative.css'],//前台樣板css
+                    removeDialogTabs: 'image:Link',//取消連結 //link:target;link:advanced;image:advanced
+                    filebrowserBrowseUrl: '<{$xoAppUrl}>class/elfinder.php?type=image'//呼叫elfinder.php
                 });
             </script>
         </form>

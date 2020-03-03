@@ -1,3 +1,6 @@
+<!-- 註冊表單介面 -->
+
+
 <div class="container" style="margin-top: 70px;">
     <h1 class="text-center text-primary">註冊表單</h1>
     
@@ -52,6 +55,7 @@
         </div> 
     </div>
     <div class="text-center pb-20">
+        <!-- 按下送出時,送出op的值 -->
         <input type="hidden" name="op" value="reg">
         <button type="submit" class="btn btn-primary">送出</button>
     </div>

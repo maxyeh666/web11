@@ -37,21 +37,20 @@ $SESSION['admin']="";
 $_SESSION['user']['kind'] = isset($_SESSION['user']['kind']) ? $_SESSION['user']['kind'] : ""; //使用三元運算式來判斷session的值,若有則帶入值,若無則預設為空值
 
 # 為了cookie使用
-if($_SESSION['user']['kind'] === ""){
-  $_COOKIE['token'] = isset($_COOKIE['token']) ? $_COOKIE['token'] : "";
-  $_COOKIE['uname'] = isset($_COOKIE['uname']) ? $_COOKIE['uname'] : "";
+if($_SESSION['user']['kind'] === ""){ //若session值為空
+  $_COOKIE['token'] = isset($_COOKIE['token']) ? $_COOKIE['token'] : ""; //取得token值,若沒有值則為空
+  $_COOKIE['uname'] = isset($_COOKIE['uname']) ? $_COOKIE['uname'] : ""; //取得uname值,若沒有值則為空
   
+  #過濾
   $_COOKIE['uname'] = db_filter($_COOKIE['uname'], '');
   $_COOKIE['token'] = db_filter($_COOKIE['token'], '');
   
-  if($_COOKIE['uname'] &&  $_COOKIE['token']){
+  if($_COOKIE['uname'] &&  $_COOKIE['token']){ //若uname且token有值
     $sql="SELECT *
           FROM `users`
-          WHERE `uname` = '{$_COOKIE['uname']}'
-    ";
-  
-    $result = $db->query($sql);
-    $row = $result->fetch_assoc();
+          WHERE `uname` = '{$_COOKIE['uname']}'";
+    $result = $db->query($sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
+    $row = $result->fetch_assoc(); //fetch_assoc()將讀到的資料放入對應的key值
   
     if($_COOKIE['token'] === $row['token']){
       

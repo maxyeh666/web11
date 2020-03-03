@@ -58,17 +58,17 @@ function op_update($uid=""){
   }
 
   $sql="UPDATE `users` SET
-        `uname` = '{$_POST['uname']}',
-        {$and_col}
-        `name` = '{$_POST['name']}',
-        `tel` = '{$_POST['tel']}',
-        `email` = '{$_POST['email']}',
-        `kind` = '{$_POST['kind']}'
-        WHERE `uid` = '{$uid}';  
-  ";//die($sql);
-  $db->query($sql) or die($db->error() . $sql);
-  return "會員資料更新成功";
+               `uname` = '{$_POST['uname']}',
+               {$and_col}
+               `name` = '{$_POST['name']}',
+                `tel` = '{$_POST['tel']}',
+               `email` = '{$_POST['email']}',
+               `kind` = '{$_POST['kind']}'
+        WHERE `uid` = '{$uid}';";
+  //die($sql);
+  $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
 
+  return "會員資料更新成功";
 }
 
 function op_form($uid=""){
@@ -77,11 +77,11 @@ function op_form($uid=""){
   if($uid){
     $sql="SELECT *
           FROM `users`
-          WHERE `uid` = '{$uid}'
-    ";//die($sql);
+          WHERE `uid` = '{$uid}'";
+    //die($sql);
     
-    $result = $db->query($sql) or die($db->error() . $sql);
-    $row = $result->fetch_assoc(); 
+    $result = $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
+    $row = $result->fetch_assoc();  //fetch_assoc()將讀到的資料放入對應的key值
   }
   $row['uid'] = isset($row['uid']) ? $row['uid'] : "";
   $row['uname'] = isset($row['uname']) ? $row['uname'] : "";
@@ -98,9 +98,9 @@ function op_list(){
 
   $sql = "SELECT * FROM `users`";
 
-  $result = $db->query($sql) or die($db->error() . $sql);
+  $result = $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
   $rows = [];
-  while($row=$result->fetch_assoc()){
+  while($row=$result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
 
     #驗證程序
     $row['uname'] = htmlspecialchars($row['uname']);//字串
@@ -116,13 +116,13 @@ function op_list(){
 }
 
 /*=======================
-刪除會員函式
+刪除函式
 =======================*/
 function op_delete($uid){
   global $db;
   $sql="DELETE FROM `users`
-        WHERE `uid` = '{$uid}';
-  ";
-  $db->query($sql) or die($db->error() . $sql);
+        WHERE `uid` = '{$uid}';";
+  $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
+
   return "會員刪除成功";
 }

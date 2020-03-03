@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-02 11:28:40
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 13:45:27
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\menu.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5c7d680371d2_08319835',
+  'unifunc' => 'content_5e5deef7f3b752_15262533',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fdd2f466954de4047e13de39eaab91f9aecc0f92' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\menu.tpl',
-      1 => 1583119718,
+      1 => 1583214325,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5c7d680371d2_08319835 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5deef7f3b752_15262533 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
@@ -31,6 +31,15 @@ class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
+    <div class="row mb-3">
+        <div class="cols-sm-4">
+            <!-- 下拉式選單,取得kind的值來判斷 -->
+            <select name="kind" id="kind" class="form-control" onchange="location.href='?kind='+this.value">
+                <option value="mainMenu" <?php if ($_smarty_tpl->tpl_vars['kind']->value == "mainMenu") {?> selected <?php }?> >主選單</option>
+                <option value="cartMenu" <?php if ($_smarty_tpl->tpl_vars['kind']->value == "cartMenu") {?> selected <?php }?> >購物車選單</option>
+            </select>
+        </div>
+    </div>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
             <tr>
@@ -45,6 +54,7 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
             </tr>
         </thead>
         <tbody>
+            <!-- 將資料表找到的資料顯示出來 -->
             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rows']->value, 'row');
 if ($_from !== null) {

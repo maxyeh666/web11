@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no"
-/>  
+
+<!-- 後臺管理面板 -->
+
 
 <!-- bootstrap css -->
 <link rel="stylesheet" href="<{$xoImgUrl}>bootstrap/bootstrap.min.css">
 
-<title>會員管理</title>
+<{* 引入外部程式、css *}>
 <{* head_js.tpl *}>
 <{include file = "tpl/head_js.tpl"}>
-</head>
-<body>
-<{* 轉向 *}>
+
+<{* 面板轉向顯示控制 *}>
 <{include file="tpl/redirect.tpl"}>
 
 <h1 class = "text-center mt-2">管理員後台</h1>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
+            <!-- 主要管理頁面所要出現的面板 -->
             <{if $WEB.file_name == "user.php"}>
                 <{include file="tpl/user.tpl"}>
             <{elseif $WEB.file_name == "prod.php"}>
@@ -72,5 +66,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

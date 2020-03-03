@@ -1,49 +1,54 @@
+<!-- 主要頁面 -->
+
+
 <!-- 輪播圖 -->
 
+<!-- 判斷是否有輪播圖,true則顯示輪播圖,false則不顯示 -->
 <{if $mainSlides}>
     <!-- 輪播圖CSS -->
-<style>
-.carousel-item {
-    height: 100vh;
-    min-height: 350px;
-    background: no-repeat center center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-</style>
+    <style>
+    .carousel-item {
+        height: 100vh;
+        min-height: 350px;
+        background: no-repeat center center scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    </style>
 
-<!-- 輪播圖HTML -->
-<header>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-        <{foreach $mainSlides as $index => $mainSlide}>
-            <li data-target="#carouselExampleIndicators" data-slide-to="<{$index}>" <{if $index == '0'}>class="active" <{/if}> ></li>
-        <{/foreach}>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-        
-        <{foreach $mainSlides as $index => $mainSlide}>
-            <!-- Slide One - Set the background image for this slide in the line below -->
-            <div class="carousel-item <{if $index == '0'}>active <{/if}>" style="background-image: url('<{$mainSlide.pic}>')">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4"><{$mainSlide.title}></h2>
+    <!-- 輪播圖HTML -->
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            <!-- 從資料庫取得輪播圖資料並啟動輪播-->
+            <{foreach $mainSlides as $index => $mainSlide}>
+                <li data-target="#carouselExampleIndicators" data-slide-to="<{$index}>" <{if $index == '0'}>class="active" <{/if}> ></li>
+            <{/foreach}>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+            
+            <{foreach $mainSlides as $index => $mainSlide}>
+                <!-- 用迴圈將輪播圖依序放入區塊 -->
+                <div class="carousel-item <{if $index == '0'}>active <{/if}>" style="background-image: url('<{$mainSlide.pic}>')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4"><{$mainSlide.title}></h2>
+                    </div>
                 </div>
-            </div>
-        <{/foreach}>
+            <{/foreach}>
 
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-            </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-            </a>
-    </div>
-</header>
+    </header>
 
 <{/if}>
 

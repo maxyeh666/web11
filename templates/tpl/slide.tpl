@@ -1,7 +1,13 @@
+<!-- 輪播圖管理介面 -->
+
+
 <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <{if $op == "op_list"}>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
@@ -64,10 +70,9 @@
                     <label>圖片(1920x1080)</label>
                     <input type="file" class="form-control" name="pic" id="pic">
                     <label class="mt-1">
+                        <!-- 取得輪播圖預覽圖 -->
                         <{if $row.pic}>
                             <img src="<{$row.pic}>" alt="<{$row.title}>" class="img-fluid">
-                        <{else}>
-                            <label>圖片預覽</label>
                         <{/if}>
                     </label>
                 </div>       
@@ -75,6 +80,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label style="display:block;">外部連結狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="target" id="target_1" value="1" <{if $row.target=='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
                         <input type="radio" name="target" id="target_0" value="0" <{if $row.target=='0'}>checked<{/if}>>
@@ -84,6 +90,7 @@
                 <!-- 選單狀態  -->
                 <div class="col-sm-3">
                     <div class="form-group">
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <label style="display:block;">圖片狀態</label>
                         <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable=='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
@@ -100,6 +107,7 @@
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op、sn與kind的值 -->
                 <input type="hidden" name="op" value="<{$row.op}>">
                 <input type="hidden" name="sn" value="<{$row.sn}>">
                 <input type="hidden" name="kind" value="<{$row.kind}>">
@@ -159,7 +167,7 @@
             confirmButtonText: '是的，刪除它！'
         }).then((result) => {
             if (result.value) {
-                //確定要刪除的動作
+                //刪除第(sn)筆資料
                 document.location.href="slide.php?op=op_delete&kind=" + kind +"&sn=" + sn;
             }
         })

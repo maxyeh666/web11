@@ -1,3 +1,6 @@
+<!-- 轉向面板控制 -->
+
+
 <{* sweetalert2 *}>
 <{if $redirect}>
 <!-- sweetalert2 -->

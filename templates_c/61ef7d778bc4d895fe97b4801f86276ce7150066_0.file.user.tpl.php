@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-27 11:30:07
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:49
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5737bf86a762_50654073',
+  'unifunc' => 'content_5e5df95d15be22_63315423',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '61ef7d778bc4d895fe97b4801f86276ce7150066' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\user.tpl',
-      1 => 1582688868,
+      1 => 1583216769,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5737bf86a762_50654073 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5df95d15be22_63315423 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
@@ -105,6 +105,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">會員狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則為管理員,為0則為會員 -->
                         <input type="radio" name="kind" id="kind_1" value="1" <?php if ($_smarty_tpl->tpl_vars['row']->value['kind'] == '1') {?>checked<?php }?>>
                         <label for="kind_1" style="display:inline;">管理員</label>&nbsp;&nbsp;
                         <input type="radio" name="kind" id="kind_0" value="0" <?php if ($_smarty_tpl->tpl_vars['row']->value['kind'] == '0') {?>checked<?php }?>>
@@ -138,6 +139,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op與uid的值 -->
                 <input type="hidden" name="op" value="op_update">
                 <input type="hidden" name="uid" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['uid'];?>
 ">
@@ -216,7 +218,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             confirmButtonText: '是的，刪除它！'
         }).then((result) => {
             if (result.value) {
-                //確定要刪除的動作
+                //刪除第(uid))筆資料
                 document.location.href="user.php?op=op_delete&uid="+uid;
             }
         })

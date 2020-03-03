@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-02 15:57:25
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:47
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\body.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5cbc65bf1518_76525861',
+  'unifunc' => 'content_5e5df95ba8b3c3_66787726',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c5e17833a19e57273ed9b770bdf20738b2d674ba' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\body.tpl',
-      1 => 1583134946,
+      1 => 1583215020,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5cbc65bf1518_76525861 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- 輪播圖 -->
+function content_5e5df95ba8b3c3_66787726 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- 主要頁面 -->
+
+
+<!-- 輪播圖 -->
 
 <?php if ($_smarty_tpl->tpl_vars['mainSlides']->value) {?>
     <!-- 輪播圖CSS -->
@@ -41,6 +44,7 @@ function content_5e5cbc65bf1518_76525861 (Smarty_Internal_Template $_smarty_tpl)
 <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
+        <!-- 從資料庫取得輪播圖資料並啟動輪播-->
         <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['mainSlides']->value, 'mainSlide', false, 'index');
 if ($_from !== null) {
@@ -60,7 +64,7 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['index']->value => $_smarty_tpl->tpl_vars['mainSlide']->value) {
 ?>
-            <!-- Slide One - Set the background image for this slide in the line below -->
+            <!-- 用迴圈將輪播圖依序放入區塊 -->
             <div class="carousel-item <?php if ($_smarty_tpl->tpl_vars['index']->value == '0') {?>active <?php }?>" style="background-image: url('<?php echo $_smarty_tpl->tpl_vars['mainSlide']->value['pic'];?>
 ')">
                 <div class="carousel-caption d-none d-md-block">

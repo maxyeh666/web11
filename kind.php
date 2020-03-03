@@ -59,48 +59,56 @@ function op_insert($kind,$sn=""){
 
     if($sn){    
         $sql="UPDATE  `kinds` SET
-        `title` = '{$_POST['title']}',
-        `enable` = '{$_POST['enable']}',
-        `sort` = '{$_POST['sort']}',
-        `kind` = '{$_POST['kind']}'
-        WHERE `sn` = '{$_POST['sn']}'";
-        $db->query($sql) or die($db->error() . $sql);
+                      `title` = '{$_POST['title']}',
+                      `enable` = '{$_POST['enable']}',
+                      `sort` = '{$_POST['sort']}',
+                      `kind` = '{$_POST['kind']}'
+              WHERE `sn` = '{$_POST['sn']}'";
+        $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
         $msg = "類別資料更新成功";
     }
     else{
         $sql="INSERT INTO `kinds` 
-            (`title`, `enable`, `sort`, `kind`)
-            VALUES 
-            ('{$_POST['title']}','{$_POST['enable']}','{$_POST['sort']}', '{$_POST['kind']}')    
-            "; //die($sql);
-        $db->query($sql) or die($db->error() . $sql);
-        $sn = $db->insert_id;
+                          (`title`, `enable`, `sort`, `kind`)
+                     VALUES 
+                          ('{$_POST['title']}','{$_POST['enable']}','{$_POST['sort']}', '{$_POST['kind']}')";
+        //die($sql);
+        $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+        $sn = $db->insert_id;  //將資料放入資料表對應的ID(這邊是指sn),若沒有則返回0(因為AUTO_INCREMENT會成為第1筆)
         $msg = "類別資料新增成功!"; 
     }
     return $msg;
 }
 
+/*===========================
+  用sn取得類別檔資料
+===========================*/
 function getKindsBySn($sn){
     global $db;
+
     $sql="SELECT *
           FROM `kinds`
-          WHERE `sn` = '{$sn}'
-    ";//die($sql);
-    
-    $result = $db->query($sql) or die($db->error() . $sql);
-    $row = $result->fetch_assoc();
+          WHERE `sn` = '{$sn}'";
+    //die($sql);
+    $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+    $row = $result->fetch_assoc();  //fetch_assoc()將讀到的資料放入對應的key值
+
     return $row;
 }
 
+/*================================
+  用kind 取得數量的最大值
+================================*/
 function getKindMaxSortByKind($kind){
     global $db;
+
     $sql = "SELECT count(*)+1 as count
             FROM `kinds`
-            WHERE `kind`='{$kind}'
-    ";//die($sql);
+            WHERE `kind`='{$kind}'";
+    //die($sql);
+    $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+    $row = $result->fetch_assoc();  //fetch_assoc()將讀到的資料放入對應的key值
 
-    $result = $db->query($sql) or die($db->error() . $sql);
-    $row = $result->fetch_assoc();
     return $row['count'];
 }
 
@@ -113,13 +121,13 @@ function op_form($kind,$sn=""){
     }else{
         $row['op'] = "op_insert";
     }
-        $row['sn'] = isset($row['sn']) ? $row['sn'] : "";
-        $row['kind'] = isset($row['kind']) ? $row['kind'] : $kind;
-        $row['title'] = isset($row['title']) ? $row['title'] : "";
-        $row['enable'] = isset($row['enable']) ? $row['enable'] : "1";
-        $row['sort'] = isset($row['sort']) ? $row['sort'] : getKindMaxSortByKind($kind);
+    $row['sn'] = isset($row['sn']) ? $row['sn'] : "";
+    $row['kind'] = isset($row['kind']) ? $row['kind'] : $kind;
+    $row['title'] = isset($row['title']) ? $row['title'] : "";
+    $row['enable'] = isset($row['enable']) ? $row['enable'] : "1";
+    $row['sort'] = isset($row['sort']) ? $row['sort'] : getKindMaxSortByKind($kind);
 
-        $smarty->assign("row",$row);
+    $smarty->assign("row",$row);
 }
 
 function op_list($kind){
@@ -129,10 +137,10 @@ function op_list($kind){
             FROM `kinds`
             WHERE `kind`='{$kind}'";
     //die($sql);
-
-    $result = $db->query($sql) or die($db->error() . $sql);
+    $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
     $rows=[];
-    while($row = $result->fetch_assoc()){ 
+
+    while($row = $result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
         #驗證
         $row['sn'] = (int)$row['sn'];//分類
         $row['title'] = htmlspecialchars($row['title']);//標題
@@ -145,12 +153,14 @@ function op_list($kind){
 }
 
 /*=======================
-刪除會員函式
+刪除函式
 =======================*/
 function op_delete($kind,$sn){
     global $db;
+
     $sql="DELETE FROM `kinds`
           WHERE `sn` = '{$sn}'";
-    $db->query($sql) or die($db->error() . $sql);
+    $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+
     return "類別刪除成功";
 }

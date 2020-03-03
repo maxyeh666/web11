@@ -1,3 +1,6 @@
+<!-- 聯絡資訊傳送成功樣板 -->
+
+
 <div class="container mt-3 ">
     <div class="jumbotron">
         <h1 class="display-4 text-center">訊息已傳送</h1>

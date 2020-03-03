@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-02 14:13:13
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:30:29
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5ca3f93d6b67_73199200',
+  'unifunc' => 'content_5e5df985f1fc34_82474097',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1583129591,
+      1 => 1583217028,
       2 => 'file',
     ),
   ),
@@ -27,26 +27,15 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/slide.tpl' => 1,
   ),
 ),false)) {
-function content_5e5ca3f93d6b67_73199200 (Smarty_Internal_Template $_smarty_tpl) {
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-<meta charset="utf-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no"
-/>  
-
+function content_5e5df985f1fc34_82474097 (Smarty_Internal_Template $_smarty_tpl) {
+?>
 <!-- bootstrap css -->
 <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 bootstrap/bootstrap.min.css">
 
-<title>會員管理</title>
 <?php $_smarty_tpl->_subTemplateRender("file:tpl/head_js.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
-</head>
-<body>
+
 <?php $_smarty_tpl->_subTemplateRender("file:tpl/redirect.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -54,6 +43,7 @@ bootstrap/bootstrap.min.css">
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
+            <!-- 主要管理頁面所要出線的面板 -->
             <?php if ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "user.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/user.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -107,7 +97,5 @@ bootstrap/bootstrap.min.css">
             </div>
         </div>
     </div>
-</div>
-</body>
-</html><?php }
+</div><?php }
 }

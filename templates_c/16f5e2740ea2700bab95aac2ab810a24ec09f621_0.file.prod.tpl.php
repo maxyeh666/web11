@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-02 16:32:58
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:09:57
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\prod.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5cc4ba63d1d0_26454277',
+  'unifunc' => 'content_5e5df4b541b4d9_32716844',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f5e2740ea2700bab95aac2ab810a24ec09f621' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\prod.tpl',
-      1 => 1583137973,
+      1 => 1583215591,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5cc4ba63d1d0_26454277 (Smarty_Internal_Template $_smarty_tpl) {
-?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+function content_5e5df4b541b4d9_32716844 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- 商品管理頁面 -->
+
+
+<link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
@@ -47,6 +50,7 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
             </tr>
     </thead>
     <tbody>
+        <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
         <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rows']->value, 'row');
 if ($_from !== null) {
@@ -72,6 +76,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
 );"><i class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
+        <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
         <?php
 }
 } else {
@@ -106,6 +111,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="form-group">
                     <label>商品分類</label>
                         <select name="kind_sn" id="kind_sn" class="form-control">
+                            <!-- 從資料庫取得資料,利用迴圈放入下拉式選單 -->
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['row']->value['kind_sn_options'], 'option');
 if ($_from !== null) {
@@ -194,6 +200,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
+            
             <!-- ckeditor -->
             <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
@@ -202,9 +209,12 @@ class/ckeditor/ckeditor.js"><?php echo '</script'; ?>
             <?php echo '<script'; ?>
 >
                 CKEDITOR.replace('content',{
-                    height:300,
+                    height:500,//高度
                     contentsCss: ['<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
-css/creative.css'] //引入前台樣板css
+css/creative.css'],//前台樣板css
+                    removeDialogTabs: 'image:Link',//取消連結 //link:target;link:advanced;image:advanced
+                    filebrowserBrowseUrl: '<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+class/elfinder.php?type=image'//呼叫elfinder.php
                 });
             <?php echo '</script'; ?>
 >

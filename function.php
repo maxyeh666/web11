@@ -31,6 +31,7 @@ function system_CleanVars(&$global, $key, $default = '', $type = 'int')
   轉向函數
 ############################################*/
 function redirect_header($url, $message , $time) { //redirect_header(回到網址,出現訊息,出現時間)
+  //從session取得資料
   $_SESSION['redirect'] = true;
   $_SESSION['message'] = $message;
   $_SESSION['time'] = $time;

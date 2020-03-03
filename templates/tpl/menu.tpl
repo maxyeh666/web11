@@ -1,8 +1,22 @@
+<!-- 選單管理介面 -->
+
 <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <{if $op == "op_list"}>
+    <div class="row mb-3">
+        <div class="cols-sm-4">
+            <!-- 下拉式選單,取得kind的值來判斷使用的選單 -->
+            <select name="kind" id="kind" class="form-control" onchange="location.href='?kind='+this.value">
+                <option value="mainMenu" <{if $kind == "mainMenu"}> selected <{/if}> >主選單</option>
+                <option value="cartMenu" <{if $kind == "cartMenu"}> selected <{/if}> >購物車選單</option>
+            </select>
+        </div>
+    </div>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
             <tr>
@@ -16,6 +30,7 @@
             </tr>
         </thead>
         <tbody>
+            <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
             <{foreach $rows as $row}>
                 <tr>
                     <td class="text-center"><{$row.title}></td>
@@ -27,6 +42,7 @@
                         <a href="javascript:void(0)" onclick="op_delete('<{$row.kind}>',<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
+            <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
             <{foreachelse}>
                 <tr>
                     <td colspan=6>目前沒有資料</td>
@@ -61,6 +77,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">外部連接狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="target" id="target_1" value="1" <{if $row.target=='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
                         <input type="radio" name="target" id="target_0" value="0" <{if $row.target=='0'}>checked<{/if}>>
@@ -71,6 +88,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">選單狀態</label>
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable=='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
                         <input type="radio" name="enable" id="enable_0" value="0" <{if $row.enable=='0'}>checked<{/if}>>
@@ -86,6 +104,7 @@
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op、sn與kind -->
                 <input type="hidden" name="op" value="<{$row.op}>">
                 <input type="hidden" name="sn" value="<{$row.sn}>">
                 <input type="hidden" name="kind" value="<{$row.kind}>">

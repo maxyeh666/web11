@@ -1,7 +1,13 @@
+<!-- 類別管理介面 -->
+
+
 <link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
 <script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <{if $op == "op_list"}>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
@@ -14,6 +20,7 @@
             </tr>
         </thead>
         <tbody>
+            <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
             <{foreach $rows as $row}>
                 <tr>
                     <td class="text-center"><{$row.title}></td>
@@ -24,6 +31,7 @@
                     </td>
                 </tr>
             <{foreachelse}>
+                <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
                 <tr>
                     <td colspan=6>目前沒有資料</td>
                 </tr>
@@ -50,9 +58,10 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">商品狀態</label>
-                        <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable=='1'}>checked<{/if}>>
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
+                        <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable =='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
-                        <input type="radio" name="enable" id="enable_0" value="0" <{if $row.enable=='0'}>checked<{/if}>>
+                        <input type="radio" name="enable" id="enable_0" value="0" <{if $row.enable =='0'}>checked<{/if}>>
                         <label for="enable_0" style="display:inline;">停用</label>
                     </div>
                 </div>          
@@ -65,6 +74,7 @@
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op、sn與kind -->
                 <input type="hidden" name="op" value="<{$row.op}>">
                 <input type="hidden" name="sn" value="<{$row.sn}>">
                 <input type="hidden" name="kind" value="<{$row.kind}>">

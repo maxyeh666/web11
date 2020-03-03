@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-02 15:36:01
+/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:47
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\head.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5cb7617af690_21130407',
+  'unifunc' => 'content_5e5df95ba65760_17446235',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd3a198afb22049caf54c23f0f92fe72213bed86f' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\head.tpl',
-      1 => 1583127998,
+      1 => 1583215122,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5cb7617af690_21130407 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- Navigation -->
+function content_5e5df95ba65760_17446235 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- 標頭導覽列 -->
+
+
+<!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" style="background-color: rgb(192, 103, 19);opacity: 70%;" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="index.php#page-top">Start Bootstrap</a>

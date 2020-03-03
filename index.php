@@ -59,34 +59,32 @@ $smarty->display('theme.tpl');
 
 //----函數區
 function contact_form(){
-
 }
 
 function ok(){
-
 }
 
 function getMenus($kind,$pic=false){
   global $db;
 
+  // 取得資料庫資料,且enable值為1者
   $sql = "SELECT *
           FROM `kinds`
           WHERE `kind`='{$kind}' and `enable` = '1'
           ORDER BY `sort`";
-          
   //die($sql);
-
-  $result = $db->query($sql) or die($db->error() . $sql);
+  $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
   $rows=[];
-  while($row = $result->fetch_assoc()){ 
-      #驗證
-      $row['sn'] = (int)$row['sn'];//流水號
-      $row['title'] = htmlspecialchars($row['title']);//標題
-      $row['enable'] = (int)$row['enable'];//狀態 
-      $row['url'] = htmlspecialchars($row['url']);//網址
-      $row['target'] = (int)$row['target'];//外部連接
-      $row['pic'] = ($pic == true) ? getFilesByKindColsnSort($kind,$row['sn']) :"";//圖片連結
-      $rows[] = $row;
+
+  while($row = $result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
+    #驗證
+    $row['sn'] = (int)$row['sn'];//流水號
+    $row['title'] = htmlspecialchars($row['title']);//標題
+    $row['enable'] = (int)$row['enable'];//狀態 
+    $row['url'] = htmlspecialchars($row['url']);//網址
+    $row['target'] = (int)$row['target'];//外部連接
+    $row['pic'] = ($pic == true) ? getFilesByKindColsnSort($kind,$row['sn']) :"";//圖片連結
+    $rows[] = $row;
   }
   // print_r($rows);die();
   return $rows;
@@ -101,8 +99,7 @@ function login(){
   $sql="SELECT *
         FROM `users`
         WHERE `uname` = '{$_POST['uname']}'";
-
-  $result = $db->query($sql) or die($db->error() . $sql);
+  $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
   $row = $result->fetch_assoc() or redirect_header("index.php", "帳號輸入錯誤" , 3000);//先判斷帳號是否正確
 
   //資料過濾
@@ -125,7 +122,7 @@ function login(){
     $_SESSION['user']['email'] = $row['email'];
     $_SESSION['user']['kind'] = $row['kind'];
     
-    $_POST['remember'] = isset($_POST['remember']) ? $_POST['remember'] : "";
+    $_POST['remember'] = isset($_POST['remember']) ? $_POST['remember'] : ""; //判斷記住我(remember)是否有勾選,沒有則為空值
     
     if($_POST['remember']){ //當判斷remember(記住我)方塊勾選時,進行下列動作
       //將資料寫入cookie
@@ -133,15 +130,17 @@ function login(){
       setcookie("token",$row['token'], time()+ 3600 * 24 * 365); //將token寫入cookie,有效時間60(秒)*60(分)*24(小時)*365(天)
     }
     return "登入成功";
-  }else{    
-    $_SESSION['user']['uid'] = "";
-    $_SESSION['user']['uname'] = "";
-    $_SESSION['user']['name'] = "";
-    $_SESSION['user']['tel'] = "";
-    $_SESSION['user']['email'] = "";
-    $_SESSION['user']['kind'] = "";
-    return "登入失敗";
-  }
+    }else{    
+      //清空session
+      $_SESSION['user']['uid'] = "";
+      $_SESSION['user']['uname'] = "";
+      $_SESSION['user']['name'] = "";
+      $_SESSION['user']['tel'] = "";
+      $_SESSION['user']['email'] = "";
+      $_SESSION['user']['kind'] = "";
+
+      return "登入失敗";
+    }
 }
 
 function logout(){  //登出的函數設定
@@ -159,16 +158,15 @@ function logout(){  //登出的函數設定
 
 
 function login_form(){
-
 }
 
 function reg_form(){
-
 }
 
 function reg(){
   global $db;
   
+  #過濾
   $_POST['uname'] = db_filter($_POST['uname'], '帳號');
   $_POST['pass'] = db_filter($_POST['pass'], '密碼');
   $_POST['chk_pass'] = db_filter($_POST['chk_pass'], '確認密碼');
@@ -184,9 +182,10 @@ function reg(){
   $_POST['pass']  = password_hash($_POST['pass'], PASSWORD_DEFAULT);
   $_POST['token']  = password_hash($_POST['uname'], PASSWORD_DEFAULT);
 
-  $sql="INSERT INTO `users` (`uname`, `pass`, `name`, `tel`, `email`, `token`)
-  VALUES ('{$_POST['uname']}', '{$_POST['pass']}', '{$_POST['name']}', '{$_POST['tel']}', '{$_POST['email']}', '{$_POST['token']}');";
-
-  $db->query($sql) or die($db->error() . $sql);
-  $uid = $db->insert_id;
+  $sql="INSERT INTO `users` 
+                    (`uname`, `pass`, `name`, `tel`, `email`, `token`)
+               VALUES 
+                    ('{$_POST['uname']}', '{$_POST['pass']}', '{$_POST['name']}', '{$_POST['tel']}', '{$_POST['email']}', '{$_POST['token']}');";
+  $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+  $uid = $db->insert_id;  //將資料放入資料表對應的ID(這邊是指sn),若沒有則返回0(因為AUTO_INCREMENT會成為第1筆)
 }

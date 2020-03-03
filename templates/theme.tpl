@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- 主面板基礎架構,判斷是否需要轉頁 -->
 
-<head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Creative - Start Bootstrap Theme</title>
 
 <!-- Font Awesome Icons -->
 <link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,49 +14,25 @@
 <!-- Theme CSS - Includes Bootstrap -->
 <link href="<{$xoImgUrl}>css/creative.min.css" rel="stylesheet">
 
+<{* 引入外部程式、css *}>
 <{* head_js.tpl *}>
 <{include file="tpl/head_js.tpl"}>
-</head>
 
-<body id="page-top">
-
-<{* 轉向 *}>
+<{* 面板轉向顯示控制(redirect.tpl) *}>
 <{include file="tpl/redirect.tpl"}>
 
+<{* 引入標頭導覽列(head.tpl)*}>
 <{* head.tpl *}>
 <{include file="tpl/head.tpl"}>
 
-<{if $op == "contact_form"}>
-
-  <{* contact_form.tpl *}>
-  <{include file="tpl/contact_form.tpl"}>
-
-  <{else if $op == "ok"}>
-
-    <{* ok.tpl *}>
-    <{include file="tpl/ok.tpl"}>
-
-  <{else if $op == "login_form"}>
-
-    <{* admin.tpl *}>
-    <{include file="tpl/login_form.tpl"}>
-    
-  <{else if $op == "reg_form"}>
-
-    <{* user.tpl *}>
-    <{include file="tpl/reg_form.tpl"}>
-
-  <{else}>
-
-  <{* body.tpl *}>
-  <{include file="tpl/body.tpl"}>
-
+<{if $WEB.file_name == "index.php"}>
+  <{include file="tpl/index.tpl"}>
+<{elseif  $WEB.file_name == "cart.php"}>
+  <{include file="tpl/cart.tpl"}>
 <{/if}>
 
-<{* footer.tpl *}>
+<{* 讀入頁尾(footer.tpl) *}>
 <{include file="tpl/footer.tpl"}>
 
 <!-- Custom scripts for this template -->
 <script src="<{$xoImgUrl}>js/creative.min.js"></script>
-</body>
-</html>
