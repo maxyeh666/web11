@@ -20,13 +20,18 @@
     </thead>
     <tbody>
         <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
-        <{foreach $smarty.session.cart as $sn => $row}> <!-- 把session資料寫入 -->
+        <{foreach $rows as $row}> <!-- 把session資料寫入 -->
             <tr>
-                <td><img src="<{$row.prod}>" alt="<{$row.title}>" style="width: 100px;"></td> 
+                <td><img src="<{$row.prod}>" alt="<{$row.title}>" width=100></td>
                 <td class="align-middle"><{$row.title}></td>
+                <td class="align-middle"><{$row.kinds_title}></td>
                 <td class="text-right align-middle"><{$row.price}></td>
-                <td class="text-center align-middle"><{$row.amount}></td>
-                <td class="text-right align-middle"></td>
+                <td class="text-center align-middle"><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
+                <td class="text-center align-middle"><{$row.counter}></td>
+                <td class="text-center align-middle">
+                    <a href="?op=op_form&sn=<{$row.sn}>"><i class="far fa-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="op_delete(<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
+                </td>
             </tr>
         <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
         <{foreachelse}>

@@ -103,7 +103,7 @@
                 <thead>
                 <tr> 
                     <th scope="col" style="width:85px;">圖片</th>
-                    <th scope="col">餐點名稱</th>
+                    <th scope="col">商品名稱</th>
                     <th scope="col" class="text-right">價格</th>
                     <th scope="col" class="text-center">數量</th>
                     <th scope="col" class="text-center">小計</th>
@@ -119,7 +119,7 @@
                         </tr>
                     <{foreachelse}>
                         <tr>
-                            <td colspan=5>目前沒有點餐</td>
+                            <td colspan=5>目前沒有商品</td>
                         </tr>
                     <{/foreach}>
                     <tr>
