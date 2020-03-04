@@ -9,31 +9,38 @@
 <!-- 判斷op的值來決定顯示的樣板 -->
 
 <{if $op == "op_list"}>
+    <div class="row mb-2">
+        <div class="cols-sm-4">
+            <select name="kind" id="kind" class="form-control" onchange="location.href='?kind='+this.value">
+                <{foreach $kinds as $row}>
+                    <option value="<{$row.value}>" <{if $kind == $row.value}>selected<{/if}> ><{$row.title}></option>
+                <{/foreach}>
+            </select>
+        </div>
+    </div>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
-            <tr>
-                <th scope="col">標題</th>
-                <th scope="col" class="text-center">狀態</th>
-                <th scope="col" class="text-center">
-                    <a href="?op=op_form&kind=<{$kind}>"><i class="far fa-plus-square"></i>新增</a>
-                </th>
-            </tr>
+        <tr> 
+            <th scope="col">標題</th>
+            <th scope="col" class="text-center">狀態</th>
+            <th scope="col" class="text-center">
+                <a href="?op=op_form&kind=<{$kind}>"><i class="fas fa-plus-square"></i>新增</a>
+            </th>
+        </tr>
         </thead>
         <tbody>
-            <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
             <{foreach $rows as $row}>
                 <tr>
-                    <td class="text-center"><{$row.title}></td>
-                    <td class="text-center"><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
-                    <td class="text-center">
+                    <td class=""><{$row.title}></td>
+                    <td class="text-center "><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
+                    <td class="text-center ">
                         <a href="?op=op_form&kind=<{$row.kind}>&sn=<{$row.sn}>"><i class="far fa-edit"></i></a>
                         <a href="javascript:void(0)" onclick="op_delete('<{$row.kind}>',<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
             <{foreachelse}>
-                <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
                 <tr>
-                    <td colspan=6>目前沒有資料</td>
+                    <td colspan=3>目前沒有資料</td>
                 </tr>
             <{/foreach}>
         </tbody>

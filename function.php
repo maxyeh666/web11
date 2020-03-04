@@ -44,6 +44,7 @@ function redirect_header($url, $message , $time) { //redirect_header(回到網�
 if (!function_exists("getCurrentUrl")) {
   function getCurrentUrl() {
     global $_SERVER;
+
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') === FALSE ? 'http' : 'https';
     $host = $_SERVER['HTTP_HOST'];
     $script = $_SERVER['SCRIPT_NAME'];
@@ -116,6 +117,7 @@ function db_filter($var, $title = '', $filter = '',$url = _WEB_URL){
 ========================================*/ 
 function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
   global $db; 
+
   $sql="SELECT *
       FROM `files`
       WHERE `kind` = '{$kind}' AND `col_sn` = '{$col_sn}' AND `sort` = '{$sort}'
@@ -123,6 +125,7 @@ function getFilesByKindColsnSort($kind,$col_sn,$sort=1,$url=true){
   $result = $db->query($sql) or die($db->error() . $sql);
   $row = $result->fetch_assoc();
   $file_name = "";
+
   if($row){
     if($url){
         $file_name = _WEB_URL . "/uploads" . $row['sub_dir'] . "/" . $row['name'];
@@ -149,4 +152,72 @@ function delFilesByKindColsnSort($kind,$col_sn,$sort){
   ";
   $db->query($sql) or die($db->error() . $sql);	
   return;
+}
+
+/*========================================
+  取得選單資料
+========================================*/ 
+function getMenus($kind,$pic=false){
+  global $db;
+
+  // 取得資料庫資料,且enable值為1者
+  $sql = "SELECT *
+          FROM `kinds`
+          WHERE `kind`='{$kind}' and `enable` = '1'
+          ORDER BY `sort`";
+  //die($sql);
+  $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+  $rows=[];
+  
+  while($row = $result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
+      #驗證
+      $row['sn'] = (int)$row['sn'];//流水號
+      $row['title'] = htmlspecialchars($row['title']);//標題
+      $row['enable'] = (int)$row['enable'];//狀態 
+      $row['url'] = htmlspecialchars($row['url']);//網址
+      $row['target'] = (int)$row['target'];//外部連接
+      $row['pic'] = ($pic == true) ? getFilesByKindColsnSort($kind,$row['sn']) :"";//圖片連結
+      $rows[] = $row;
+  }
+  // print_r($rows);die();
+  return $rows;
+}
+
+/*===========================
+  用sn取得商品檔資料
+===========================*/
+function getProdsBysn($sn){
+  global $db;
+
+  $sql="SELECT *
+        FROM `prods`
+        WHERE `sn` = '{$sn}'";//die($sql);
+  
+  $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
+  $row = $result->fetch_assoc();  //fetch_assoc()將讀到的資料放入對應的key值
+  $row['prod'] = getFilesByKindColsnSort("prod",$sn);
+
+  return $row;
+}
+
+/*===========================
+  取得商品檔類別選項
+===========================*/
+function getProdsOptions($kind){
+  global $db;
+  
+  $sql="SELECT `sn`,`title`
+        FROM `kinds`
+        WHERE `kind` = '{$kind}' AND `enable` = '1'
+        ORDER BY `sort`";
+  $result = $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
+  $rows = [];
+
+  while($row=$result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
+      #驗證程序
+      $row['sn'] = (int)$row['sn'];//分類
+      $row['title'] = htmlspecialchars($row['title']);//標題
+      $rows[] = $row;
+  }
+  return $rows;
 }

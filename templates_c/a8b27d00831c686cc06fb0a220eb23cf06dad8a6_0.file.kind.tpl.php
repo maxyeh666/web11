@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:09:41
+/* Smarty version 3.1.34-dev-7, created on 2020-03-04 15:34:28
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\kind.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5df4a5b40bc7_10640407',
+  'unifunc' => 'content_5e5f5a04214018_96179382',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a8b27d00831c686cc06fb0a220eb23cf06dad8a6' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\kind.tpl',
-      1 => 1583215492,
+      1 => 1583217439,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5df4a5b40bc7_10640407 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5f5a04214018_96179382 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 類別管理介面 -->
 
 
@@ -33,6 +33,9 @@ class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 <!-- Font Awesome Icons -->
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
@@ -99,7 +102,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label style="display:block;">商品狀態</label>
-                        <!-- 讀取資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
+                        <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="enable" id="enable_1" value="1" <?php if ($_smarty_tpl->tpl_vars['row']->value['enable'] == '1') {?>checked<?php }?>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;
                         <input type="radio" name="enable" id="enable_0" value="0" <?php if ($_smarty_tpl->tpl_vars['row']->value['enable'] == '0') {?>checked<?php }?>>
@@ -116,6 +119,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div> 
             </div>
             <div class="text-center pb-20">
+                <!-- 按下送出時,送出op、sn與kind -->
                 <input type="hidden" name="op" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['op'];?>
 ">
                 <input type="hidden" name="sn" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>

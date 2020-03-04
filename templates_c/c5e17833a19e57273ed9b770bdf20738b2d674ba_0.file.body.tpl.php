@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:47
+/* Smarty version 3.1.34-dev-7, created on 2020-03-04 09:18:14
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\body.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5df95ba8b3c3_66787726',
+  'unifunc' => 'content_5e5f01d676e3a9_13978853',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c5e17833a19e57273ed9b770bdf20738b2d674ba' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\body.tpl',
-      1 => 1583215020,
+      1 => 1583217765,
       2 => 'file',
     ),
   ),
@@ -20,74 +20,75 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5df95ba8b3c3_66787726 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5f01d676e3a9_13978853 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 主要頁面 -->
 
 
 <!-- 輪播圖 -->
 
+<!-- 判斷是否有輪播圖,true則顯示輪播圖,false則不顯示 -->
 <?php if ($_smarty_tpl->tpl_vars['mainSlides']->value) {?>
     <!-- 輪播圖CSS -->
-<style>
-.carousel-item {
-    height: 100vh;
-    min-height: 350px;
-    background: no-repeat center center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-</style>
+    <style>
+    .carousel-item {
+        height: 100vh;
+        min-height: 350px;
+        background: no-repeat center center scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    </style>
 
-<!-- 輪播圖HTML -->
-<header>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-        <!-- 從資料庫取得輪播圖資料並啟動輪播-->
-        <?php
+    <!-- 輪播圖HTML -->
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            <!-- 從資料庫取得輪播圖資料並啟動輪播-->
+            <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['mainSlides']->value, 'mainSlide', false, 'index');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['index']->value => $_smarty_tpl->tpl_vars['mainSlide']->value) {
 ?>
-            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $_smarty_tpl->tpl_vars['index']->value;?>
+                <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $_smarty_tpl->tpl_vars['index']->value;?>
 " <?php if ($_smarty_tpl->tpl_vars['index']->value == '0') {?>class="active" <?php }?> ></li>
-        <?php
+            <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-        
-        <?php
+            </ol>
+            <div class="carousel-inner" role="listbox">
+            
+            <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['mainSlides']->value, 'mainSlide', false, 'index');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['index']->value => $_smarty_tpl->tpl_vars['mainSlide']->value) {
 ?>
-            <!-- 用迴圈將輪播圖依序放入區塊 -->
-            <div class="carousel-item <?php if ($_smarty_tpl->tpl_vars['index']->value == '0') {?>active <?php }?>" style="background-image: url('<?php echo $_smarty_tpl->tpl_vars['mainSlide']->value['pic'];?>
+                <!-- 用迴圈將輪播圖依序放入區塊 -->
+                <div class="carousel-item <?php if ($_smarty_tpl->tpl_vars['index']->value == '0') {?>active <?php }?>" style="background-image: url('<?php echo $_smarty_tpl->tpl_vars['mainSlide']->value['pic'];?>
 ')">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2 class="display-4"><?php echo $_smarty_tpl->tpl_vars['mainSlide']->value['title'];?>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4"><?php echo $_smarty_tpl->tpl_vars['mainSlide']->value['title'];?>
 </h2>
+                    </div>
                 </div>
-            </div>
-        <?php
+            <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-            </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-            </a>
-    </div>
-</header>
+    </header>
 
 <?php }?>
 

@@ -9,8 +9,15 @@ if($_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限
 $op = system_CleanVars($_REQUEST, 'op', 'op_list', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
 $kind = system_CleanVars($_REQUEST, 'kind', 'prod', 'string');
-$kind = "prod";
-// die($op);
+
+$kinds[] = array(
+    "value" => "prod",
+    "title" => "商品選單"
+);
+$kinds[] = array(
+    "value" => "orderKind",
+    "title" => "訂單選單"
+);
 
 /* 程式流程 */
 switch ($op){
@@ -135,7 +142,8 @@ function op_list($kind){
 
     $sql = "SELECT *
             FROM `kinds`
-            WHERE `kind`='{$kind}'";
+            WHERE `kind`='{$kind}'
+            ORDER BY `sort`";
     //die($sql);
     $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
     $rows=[];

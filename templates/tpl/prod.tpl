@@ -12,29 +12,21 @@
     <thead>
         <tr>
             <th scope="col" class="text-center">圖片</th>
-            <th scope="col">標題</th>
+            <th scope="col">商品名稱</th>
             <th scope="col">分類</th>
             <th scope="col" class="text-right">價格</th>
-            <th scope="col" class="text-center">狀態</th>
-            <th scope="col" class="text-right">計數</th>
-            <th scope="col" class="text-center">
-                <a href="?op=op_form"><i class="far fa-plus-square"></i>新增</a></th>
-            </tr>
+            <th scope="col" class="text-center">數量</th>
+            <th scope="col" class="text-right">小計</th>
     </thead>
     <tbody>
         <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
-        <{foreach $rows as $row}>
+        <{foreach $smarty.session.cart as $sn => $row}> <!-- 把session資料寫入 -->
             <tr>
                 <td><img src="<{$row.prod}>" alt="<{$row.title}>" style="width: 100px;"></td> 
                 <td class="align-middle"><{$row.title}></td>
-                <td class="align-middle"><{$row.kind_sn}></td>
                 <td class="text-right align-middle"><{$row.price}></td>
-                <td class="text-center align-middle"><{if $row.enable}><i class="fas fa-check"></i><{/if}></td>
-                <td class="text-right align-middle"><{$row.counter}></td>
-                <td class="text-center align-middle">
-                    <a href="?op=op_form&sn=<{$row.sn}>"><i class="fas fa-edit"></i></a>
-                    <a href="javascript:void(0)" onclick="op_delete(<{$row.sn}>);"><i class="far fa-trash-alt"></i></a>
-                </td>
+                <td class="text-center align-middle"><{$row.amount}></td>
+                <td class="text-right align-middle"></td>
             </tr>
         <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
         <{foreachelse}>
@@ -42,8 +34,13 @@
                 <td colspan=6>目前沒有資料</td>
             </tr>
         <{/foreach}>
+        <tr>
+            <td colspan="4" class="text-right">合計</td> 
+            <td class="text-right" id="Total"></td>
+        </tr>
     </tbody>
 </table>
+
 <{/if}>
 
 <{if $op=="op_form"}>

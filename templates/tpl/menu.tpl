@@ -12,8 +12,9 @@
         <div class="cols-sm-4">
             <!-- 下拉式選單,取得kind的值來判斷使用的選單 -->
             <select name="kind" id="kind" class="form-control" onchange="location.href='?kind='+this.value">
-                <option value="mainMenu" <{if $kind == "mainMenu"}> selected <{/if}> >主選單</option>
-                <option value="cartMenu" <{if $kind == "cartMenu"}> selected <{/if}> >購物車選單</option>
+                <{foreach $kinds as $row}>
+                <option value="<{$row.value}>" <{if $kind == <{$row.value}>}> selected <{/if}> ><{$row.title}></option>
+                <{/foreach}>
             </select>
         </div>
     </div>

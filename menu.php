@@ -5,14 +5,24 @@ require_once 'head.php';
 #權限檢查
 if($_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限', 3000);
 
-$kinds = ["mainMenu","cartMenu"]; //設定陣列kinds[]裡面有有2個值,"mainMenu","cartMenu"
 /* 過濾變數，設定預設值 */
 $op = system_CleanVars($_REQUEST, 'op', 'op_list', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
 $kind = system_CleanVars($_REQUEST, 'kind', 'mainMenu', 'string');
 
-$kind = (in_array($kind,$kinds)) ? $kind : "mainMenu"; //三源運算,判斷kinds的陣列裡是否有kind,否則kind=mainMenu
-// die($op);
+$kinds[] = array(
+    "value" => "mainMenu",
+    "title" => "主選單"
+);
+$kinds[] = array(
+    "value" => "cartMenu",
+    "title" => "購物車選單"
+);
+// print_r($kinds);die();
+$smarty ->assign("kinds",$kinds);
+
+// $kinds = ["mainMenu","cartMenu"]; //設定陣列kinds[]裡面有有2個值,"mainMenu","cartMenu"
+// $kind = (in_array($kind,$kinds)) ? $kind : "mainMenu"; //三元運算,判斷kinds的陣列裡是否有kind,否則kind=mainMenu
 
 /* 程式流程 */
 switch ($op){
@@ -153,9 +163,10 @@ function op_list($kind){
         $row['target'] = (int)$row['target'];//外部連接
         $rows[] = $row;
     }
+    // print_r($row);die();
     $smarty->assign("rows",$rows);
     $smarty->assign("kind",$kind);
-    // print_r($rows);die();
+    
 }
 
 /*=======================

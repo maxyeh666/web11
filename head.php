@@ -89,3 +89,8 @@ $smarty->assign("time", $_SESSION['time']);
 $_SESSION['redirect'] = "";
 $_SESSION['message'] = "";
 $_SESSION['time'] = "";
+
+#購物車圖示判斷
+
+//接收購物裡面是否有物件(session)
+$_SESSION['cartAmount'] = isset($_SESSION['cartAmount']) ? $_SESSION['cartAmount'] : 0;

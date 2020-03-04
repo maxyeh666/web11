@@ -143,45 +143,6 @@ function op_insert($sn=""){
     return $msg;
 }
 
-/*===========================
-  用sn取得商品檔資料
-===========================*/
-function getProdsBysn($sn){
-    global $db;
-
-    $sql="SELECT *
-          FROM `prods`
-          WHERE `sn` = '{$sn}'";//die($sql);
-    
-    $result = $db->query($sql) or die($db->error() . $sql); //判斷資料庫查詢是否為true,若false則傳回error訊息
-    $row = $result->fetch_assoc();  //fetch_assoc()將讀到的資料放入對應的key值
-    $row['prod'] = getFilesByKindColsnSort("prod",$sn);
-
-    return $row;
-}
-
-/*===========================
-  取得商品檔類別選項
-===========================*/
-function getProdsOptions($kind){
-    global $db;
-    
-    $sql="SELECT `sn`,`title`
-          FROM `kinds`
-          WHERE `kind` = '{$kind}' AND `enable` = '1'
-          ORDER BY `sort`";
-    $result = $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
-    $rows = [];
-
-    while($row=$result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
-        #驗證程序
-        $row['sn'] = (int)$row['sn'];//分類
-        $row['title'] = htmlspecialchars($row['title']);//標題
-        $rows[] = $row;
-    }
-    return $rows;
-}
-
 /*================================
   取得商品數量的最大值
 ================================*/
@@ -228,9 +189,24 @@ function op_form($sn=""){
 function op_list(){
     global $smarty,$db;
 
-    $sql = "SELECT * FROM `prods`";
+    $sql = "SELECT  a.*,b.title as kinds_title /* 這裡是設定交集資料庫的取得的資料欄位 */
+            FROM `prods` as a  /* 將資料庫prods設為a,然後將資料庫kinds設為b,在這裡合成交集資料表*/               
+            LEFT JOIN `kinds` as b on a.kind_sn=b.sn /* LEFT JOIN kinds為取得prods與kinds的交集,所以最終呈現會有prod的資料+kinds與prods焦急的資料*/
+            ORDER BY a.`date` desc";  /* 按照上架時間進行排序 */
+    // print_r($sql);die();
     $result = $db->query($sql) or die($db->error() . $sql);  //判斷資料庫查詢是否為true,若false則傳回error訊息
     $rows = [];
+    
+    #---分頁套件(原始$sql 不要設 limit)
+    include_once _WEB_PATH."/class/PageBar/PageBar.php";
+
+    $pageCount = 10;  //這裡設定每頁數量,超過就分頁
+    $PageBar = getPageBar($db, $sql, $pageCount, 10);  //getPageBar(資料庫, 表單, 每頁數量, 其他連結參數)
+    $sql     = $PageBar['sql'];
+    $total   = $PageBar['total'];
+    $bar     = ($total > $pageCount) ? $PageBar['bar'] : "";  //三元運算,計算total(總頁數)是否大於pagecount(現有頁數),依此製作將分頁按鈕製作出來
+    $smarty->assign("bar",$bar);  //放入smarty變數,以便在html呼叫
+    #---分頁套件(end)
 
     while($row=$result->fetch_assoc()){  //fetch_assoc()將讀到的資料放入對應的key值
         #驗證程序
@@ -239,7 +215,7 @@ function op_list(){
         $row['price'] = (int)$row['price'];//價格
         $row['enable'] = (int)$row['enable'];//狀態
         $row['counter'] = (int)$row['counter'];//計數
-        $row['prod'] = getFilesByKindColsnSort("prod",$row['sn']); 
+        $row['prod'] = getFilesByKindColsnSort("prod",$row['sn']); //圖片
         $rows[] = $row;
     }
     $smarty -> assign("rows",$rows);

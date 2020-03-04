@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:30:29
+/* Smarty version 3.1.34-dev-7, created on 2020-03-04 09:18:17
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5df985f1fc34_82474097',
+  'unifunc' => 'content_5e5f01d9780c87_43196268',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1583217028,
+      1 => 1583217648,
       2 => 'file',
     ),
   ),
@@ -27,8 +27,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/slide.tpl' => 1,
   ),
 ),false)) {
-function content_5e5df985f1fc34_82474097 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e5f01d9780c87_43196268 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
+<!-- 後臺管理面板 -->
+
+
 <!-- bootstrap css -->
 <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 bootstrap/bootstrap.min.css">
@@ -43,7 +46,7 @@ bootstrap/bootstrap.min.css">
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <!-- 主要管理頁面所要出線的面板 -->
+            <!-- 主要管理頁面所要出現的面板 -->
             <?php if ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "user.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/user.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>

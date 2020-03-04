@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:49
+/* Smarty version 3.1.34-dev-7, created on 2020-03-04 15:34:31
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5df95d15be22_63315423',
+  'unifunc' => 'content_5e5f5a07721e78_12110001',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '61ef7d778bc4d895fe97b4801f86276ce7150066' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\user.tpl',
-      1 => 1583216769,
+      1 => 1583298734,
       2 => 'file',
     ),
   ),
@@ -20,16 +20,23 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5df95d15be22_63315423 (Smarty_Internal_Template $_smarty_tpl) {
-?><link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
+function content_5e5f5a07721e78_12110001 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- 會員管理介面 -->
+
+<!-- sweetlaert2 -->
+<link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.css">
 <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
 class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 >
+
 <!-- Font Awesome Icons -->
 <link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
 vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- 判斷op的值來決定顯示的樣板 -->
+
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
