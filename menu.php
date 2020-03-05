@@ -21,8 +21,8 @@ $kinds[] = array(
 // print_r($kinds);die();
 $smarty ->assign("kinds",$kinds);
 
-// $kinds = ["mainMenu","cartMenu"]; //設定陣列kinds[]裡面有有2個值,"mainMenu","cartMenu"
-// $kind = (in_array($kind,$kinds)) ? $kind : "mainMenu"; //三元運算,判斷kinds的陣列裡是否有kind,否則kind=mainMenu
+#防呆(防止網址有遭到其他修改而出現問題)
+$kind = in_array($kind, array_keys($kinds))?$kind:"mainMenu";
 
 /* 程式流程 */
 switch ($op){

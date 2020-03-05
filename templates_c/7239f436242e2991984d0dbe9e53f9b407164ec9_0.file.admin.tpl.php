@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-04 09:18:17
+/* Smarty version 3.1.34-dev-7, created on 2020-03-05 11:46:32
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5f01d9780c87_43196268',
+  'unifunc' => 'content_5e607618bda335_50230873',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1583217648,
+      1 => 1583379971,
       2 => 'file',
     ),
   ),
@@ -27,7 +27,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/slide.tpl' => 1,
   ),
 ),false)) {
-function content_5e5f01d9780c87_43196268 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e607618bda335_50230873 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!-- 後臺管理面板 -->
 
@@ -76,7 +76,7 @@ bootstrap/bootstrap.min.css">
                         <a href="index.php">返回首頁</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://localhost/adminer/adminer.php" target="_blank">資料庫介面</a>
+                        <a href="../../adminer/adminer.php" target="_blank">資料庫介面</a>
                     </li>
                     <li class="list-group-item">
                         <a href="prod.php" class="btn-block">商品管理</a>

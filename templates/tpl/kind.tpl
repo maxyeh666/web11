@@ -57,14 +57,14 @@
                 <!--商品標題-->              
                 <div class="col-sm-4">
                     <div class="form-group">
-                    <label>商品標題<span class="text-danger">*</span></label>
+                    <label>項目<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="title" id="title" value="<{$row.title}>">
                     </div>
                 </div>         
-                <!-- 商品狀態  -->
+                <!-- 項目狀態  -->
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label style="display:block;">商品狀態</label>
+                        <label style="display:block;">項目狀態</label>
                         <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="enable" id="enable_1" value="1" <{if $row.enable =='1'}>checked<{/if}>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;

@@ -10,6 +10,7 @@ CREATE TABLE `users` (
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='會員資料表';
+
 -- 商品資料
 CREATE TABLE `prods` (
     `sn` int(10) unsigned NOT NULL auto_increment COMMENT 'prods_sn',
@@ -23,6 +24,7 @@ CREATE TABLE `prods` (
     `counter` int(10) unsigned NOT NULL default 0 COMMENT '人氣',
     PRIMARY KEY  (`sn`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='商品資料表';
+
 -- 類別資料表
 CREATE TABLE `kinds` (
     `sn` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'kinds_sn',
@@ -37,6 +39,7 @@ CREATE TABLE `kinds` (
     `content` text NULL COMMENT '內容',
     PRIMARY KEY (`sn`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='類別資料表';
+
 -- 上傳檔案
 CREATE TABLE `files` (
     `sn` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'files_sn',
@@ -54,6 +57,7 @@ CREATE TABLE `files` (
     `sub_dir` varchar(255) NOT NULL DEFAULT '' COMMENT '檔案子路徑',
     PRIMARY KEY (`sn`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='上傳檔案資料表';
+
 -- 訂單主檔
 CREATE TABLE `orders_main` (
   `sn` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sn',
@@ -65,6 +69,7 @@ CREATE TABLE `orders_main` (
   `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '會員編號',
   `date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '訂單日期',
   `total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '總計',
+  `kind_sn` smallint(5) unsigned NOT NULL DEFAULT 0 COMMENT '取貨方式',
   PRIMARY KEY (`sn`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='訂單主檔';
 
@@ -79,3 +84,14 @@ CREATE TABLE `orders` (
   `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`sn`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='訂單明細檔';
+
+-- 聯絡我們
+CREATE TABLE `contacts` (
+    `sn` int(10) unsigned NOT NULL auto_increment COMMENT 'contacts_sn',
+    `name` varchar(255) NOT NULL default '' COMMENT '姓名',
+    `tel` varchar(255) NOT NULL COMMENT '電話',
+    `email` varchar(255) NOT NULL COMMENT '信箱',
+    `content` text NULL COMMENT '內容',
+    `date` int(10) unsigned NOT NULL default 0 COMMENT '建立日期',
+    PRIMARY KEY  (`sn`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='聯絡我們資料表';

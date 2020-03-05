@@ -19,6 +19,11 @@ $kinds[] = array(
     "title" => "訂單選單"
 );
 
+$smarty ->assign("kinds",$kinds);
+
+#防呆(防止網址有遭到其他修改而出現問題)
+$kind = in_array($kind, array_keys($kinds))?$kind:"prod";
+
 /* 程式流程 */
 switch ($op){
     case "op_form" :
@@ -30,14 +35,14 @@ switch ($op){
         redirect_header("kind.php?kind={$kind}", $msg, 3000);
         exit;
 
-    case "op_update" :
-        $msg = op_insert($kind,$sn);
-        redirect_header("kind.php", $msg, 3000);
-        exit;
-
     case "op_delete" :
         $msg = op_delete($kind,$sn);
         redirect_header("kind.php?kind={$kind}", $msg, 3000);
+        exit;
+
+    case "op_update" :
+        $msg = op_insert($kind,$sn);
+        redirect_header("kind.php", $msg, 3000);
         exit;
 
     default:

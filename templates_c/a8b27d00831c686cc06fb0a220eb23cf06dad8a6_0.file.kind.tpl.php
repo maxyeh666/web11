@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-04 15:34:28
+/* Smarty version 3.1.34-dev-7, created on 2020-03-05 09:16:06
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\kind.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5f5a04214018_96179382',
+  'unifunc' => 'content_5e6052d6000685_63966746',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a8b27d00831c686cc06fb0a220eb23cf06dad8a6' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\kind.tpl',
-      1 => 1583217439,
+      1 => 1583370964,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5f5a04214018_96179382 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e6052d6000685_63966746 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 類別管理介面 -->
 
 
@@ -37,29 +37,46 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <!-- 判斷op的值來決定顯示的樣板 -->
 
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
+    <div class="row mb-2">
+        <div class="cols-sm-4">
+            <select name="kind" id="kind" class="form-control" onchange="location.href='?kind='+this.value">
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['kinds']->value, 'row');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
+?>
+                    <option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['value'];?>
+" <?php if ($_smarty_tpl->tpl_vars['kind']->value == $_smarty_tpl->tpl_vars['row']->value['value']) {?>selected<?php }?> ><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+</option>
+                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            </select>
+        </div>
+    </div>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
-            <tr>
-                <th scope="col">標題</th>
-                <th scope="col" class="text-center">狀態</th>
-                <th scope="col" class="text-center">
-                    <a href="?op=op_form&kind=<?php echo $_smarty_tpl->tpl_vars['kind']->value;?>
-"><i class="far fa-plus-square"></i>新增</a>
-                </th>
-            </tr>
+        <tr> 
+            <th scope="col">標題</th>
+            <th scope="col" class="text-center">狀態</th>
+            <th scope="col" class="text-center">
+                <a href="?op=op_form&kind=<?php echo $_smarty_tpl->tpl_vars['kind']->value;?>
+"><i class="fas fa-plus-square"></i>新增</a>
+            </th>
+        </tr>
         </thead>
         <tbody>
-            <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rows']->value, 'row');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
 ?>
                 <tr>
-                    <td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
+                    <td class=""><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 </td>
-                    <td class="text-center"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
-                    <td class="text-center">
+                    <td class="text-center "><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
+                    <td class="text-center ">
                         <a href="?op=op_form&kind=<?php echo $_smarty_tpl->tpl_vars['row']->value['kind'];?>
 &sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 "><i class="far fa-edit"></i></a>
@@ -72,9 +89,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
 }
 } else {
 ?>
-                <!-- 若沒有取得資料,則顯示"目前沒有資料" -->
                 <tr>
-                    <td colspan=6>目前沒有資料</td>
+                    <td colspan=3>目前沒有資料</td>
                 </tr>
             <?php
 }
@@ -93,15 +109,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <!--商品標題-->              
                 <div class="col-sm-4">
                     <div class="form-group">
-                    <label>商品標題<span class="text-danger">*</span></label>
+                    <label>項目<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="title" id="title" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 ">
                     </div>
                 </div>         
-                <!-- 商品狀態  -->
+                <!-- 項目狀態  -->
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label style="display:block;">商品狀態</label>
+                        <label style="display:block;">項目狀態</label>
                         <!-- 取得資料庫中enable的值,若為1則選擇啟動,為0則選擇停用 -->
                         <input type="radio" name="enable" id="enable_1" value="1" <?php if ($_smarty_tpl->tpl_vars['row']->value['enable'] == '1') {?>checked<?php }?>>
                         <label for="enable_1" style="display:inline;">啟動</label>&nbsp;&nbsp;

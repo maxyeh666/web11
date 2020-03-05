@@ -41,7 +41,7 @@
                         <a href="index.php">返回首頁</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://localhost/adminer/adminer.php" target="_blank">資料庫介面</a>
+                        <a href="../../adminer/adminer.php" target="_blank">資料庫介面</a>
                     </li>
                     <li class="list-group-item">
                         <a href="prod.php" class="btn-block">商品管理</a>
@@ -56,7 +56,7 @@
                         <a href="menu.php" class="btn-block">選單管理</a>
                     </li>
                     <li class="list-group-item">
-                            <a href="slide.php" class="btn-block">輪播圖管理</a>
+                        <a href="slide.php" class="btn-block">輪播圖管理</a>
                         </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>

@@ -1,5 +1,28 @@
 <!-- 購物車頁面 -->
 
+<!-- sweetlaert2 -->
+<link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
+<script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    function add_cart(sn){
+        Swal.fire({
+            title: '加入購物車？',
+            // text: "您將無法還原！",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '是的',
+            cancelButtonText: '取消'
+            }).then((result) => {
+            if (result.value) {
+                document.location.href="cart.php?op=add_cart&sn="+sn;
+            }
+        })
+    }
+</script>
+
 <{if $op == "op_list"}>
 <!-- Page Content -->
 <div class="container" style="margin-top: 100px;">
@@ -36,33 +59,12 @@
 </div>
 <{/if}>
 
-<!-- sweetlaert2 -->
-<link rel="stylesheet" href="<{$xoAppUrl}>class/sweetalert2/sweetalert2.css">
-<script src="<{$xoAppUrl}>class/sweetalert2/sweetalert2.all.min.js"></script>
 
-<script>
-    function add_cart(sn){
-        Swal.fire({
-            title: '加入購物車？',
-            // text: "您將無法還原！",
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '是的',
-            cancelButtonText: '取消'
-            }).then((result) => {
-            if (result.value) {
-                document.location.href="cart.php?op=add_cart&sn="+sn;
-            }
-        })
-    }
-</script>
 
 <{if $op == "order_form"}>
     <div class="container mt-5" style="margin-top: 100px!important;>
         <h1 class="text-center">商品訂單</h1>
-        <form  role="form" action="order_insert" method="post" id="myForm" >        
+        <form  role="form" action="cart.php?op=order_insert" method="post" id="myForm" >        
             <div class="row">
                 <!--姓名-->              
                 <div class="col-sm-3">
@@ -114,8 +116,11 @@
                         <tr>
                             <td><img src="<{$row.prod}>" alt="<{$row.title}>" width=80></td>
                             <td class="align-middle"><{$row.title}></td>
-                            <td class="text-right align-middle"><{$row.price}></td>
-                            <td class="text-center align-middle"><{$row.amount}></td>
+                            <td class="text-right align-middle price" name="price" style="width: 3rem;"><{$row.price}></td>
+                            <td class="text-center align-middle">
+                                <input type="number" class="amount" name="Amount[<{$row.$sn}>]" id="amount" value="<{$row.amount}>" min="0" onchange="calTotal()">
+                            </td>
+                            <td class="text-right align-middle total"></td>
                         </tr>
                     <{foreachelse}>
                         <tr>
@@ -139,6 +144,8 @@
                 </div>
             </div>
             <div class="text-center pb-3">
+                <input type="hidden" name="uid" value="<{$row.uid}>">
+                <input type="hidden" name="op" value="<{$row.op}>">
                 <button type="submit" class="btn btn-primary">送出</button>
             </div>
         </form>
@@ -154,41 +161,102 @@
 
 <!-- 表單驗證 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+
 <!-- 調用方法 -->
 <style>
 .error{
 color:red;
 }
 </style>
+
 <script>
-$(function(){
-    $("#myForm").validate({
+$(document).ready(function(){
+    $("#myForm").validate({              
         submitHandler: function(form) {
         form.submit();
         },
-        rules: {
-        'entry.1597864916' : {
-        required: true
+
+        rules : {
+            'entry.1752470597' : {
+                required : true
+            },
+            'entry.995990190' : {
+                digits : true,
+                min : 0
+            },
+            'entry.145988367' : {
+                digits : true,
+                min : 0
+            },
+            'entry.1828496956' : {
+                digits : true,
+                min : 0
+            },
+            'entry.1925021179' : {
+                digits : true,
+                min : 0
+            },
+            'total-price' : {
+                min : 1
+            }
         },
-        'entry.2110810376' : {
-        required: true
-        },
-        'entry.1402899655' : {
-        required: true
+
+        messages : {
+            'entry.1752470597' : {
+                required : "請輸入桌號"
+            },
+            'entry.995990190' : {
+                digits : "請輸入整數",
+                min : "不可輸入負數"
+            },
+            'entry.145988367' : {
+                digits : "請輸入整數",
+                min : "不可輸入負數"
+            },
+            'entry.1828496956' : {
+                digits : "請輸入整數",
+                min : "不可輸入負數"
+            },
+            'entry.1925021179' : {
+                digits : "請輸入整數",
+                min : "不可輸入負數"
+            },
+            'total-price' : {
+                min : "請點餐,便當數量不可為0"
+            }
         }
-    },
-    messages: {
-        'entry.1597864916' : {
-        required: "必填"
-        },
-        'entry.2110810376' : {
-        required: "必填"
-        },
-        'entry.1402899655' : {
-        required: "必填"
+    });
+    
+});
+</script>
+
+<!-- 計算合計金額 -->
+<script>
+    calTotal();
+    function calTotal(){
+        var total = 0;
+        //取得class為amount的值(數量)
+        var amounts = document.getElementsByClassName("amount"); 
+        //取得class為price的值(價格)
+        var prices = document.getElementsByClassName("price");
+
+        //偵測項目長度,設置成for迴圈來重複計算,並總合多少錢
+        for (i = 0;i < amounts.length;i++){
+            //取得便當數量
+            var amount = amounts[i].value; 
+            //取得便當項目
+            var price = prices[i].innerText;
+            //將price轉型成為整數
+            var price = parseInt(price);
+            //計算便當總價並放入total
+            total += (amount * price);
+            document.getElementsByClassName("total")[i].innerText = amount * price;
+        }
+        if(total === 0){
+            document.getElementById("Total").innerText = "";
+        }else{
+            document.getElementById("Total").innerText = total;
         }
     }
-    });
-});
 </script>
 <{/if}>
