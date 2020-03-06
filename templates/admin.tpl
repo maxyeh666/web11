@@ -27,6 +27,8 @@
                 <{include file="tpl/menu.tpl"}> 
             <{elseif  $WEB.file_name == "slide.php"}>
                 <{include file="tpl/slide.tpl"}> 
+            <{elseif  $WEB.file_name == "order.php"}>
+                <{include file="tpl/order.tpl"}>
             <{/if}>
         </div>
         <div class="col-sm-3">
@@ -57,7 +59,10 @@
                     </li>
                     <li class="list-group-item">
                         <a href="slide.php" class="btn-block">輪播圖管理</a>
-                        </li>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="order.php" class="btn-block">訂單管理</a>
+                    </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>
                     </li>

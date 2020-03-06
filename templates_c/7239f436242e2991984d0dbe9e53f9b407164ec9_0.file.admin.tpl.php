@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-05 11:46:32
+/* Smarty version 3.1.34-dev-7, created on 2020-03-06 14:49:39
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e607618bda335_50230873',
+  'unifunc' => 'content_5e61f2830d2a16_57376569',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7239f436242e2991984d0dbe9e53f9b407164ec9' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\admin.tpl',
-      1 => 1583379971,
+      1 => 1583477376,
       2 => 'file',
     ),
   ),
@@ -25,9 +25,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/kind.tpl' => 1,
     'file:tpl/menu.tpl' => 1,
     'file:tpl/slide.tpl' => 1,
+    'file:tpl/order.tpl' => 1,
   ),
 ),false)) {
-function content_5e607618bda335_50230873 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e61f2830d2a16_57376569 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!-- 後臺管理面板 -->
 
@@ -62,6 +63,9 @@ bootstrap/bootstrap.min.css">
             <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "slide.php") {?>
                 <?php $_smarty_tpl->_subTemplateRender("file:tpl/slide.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?> 
+            <?php } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "order.php") {?>
+                <?php $_smarty_tpl->_subTemplateRender("file:tpl/order.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
             <?php }?>
         </div>
         <div class="col-sm-3">
@@ -91,8 +95,11 @@ bootstrap/bootstrap.min.css">
                         <a href="menu.php" class="btn-block">選單管理</a>
                     </li>
                     <li class="list-group-item">
-                            <a href="slide.php" class="btn-block">輪播圖管理</a>
-                        </li>
+                        <a href="slide.php" class="btn-block">輪播圖管理</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="order.php" class="btn-block">訂單管理</a>
+                    </li>
                     <li class="list-group-item">
                         <a href="index.php?op=logout" class="btn-block">登出</a>
                     </li>

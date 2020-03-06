@@ -1,9 +1,5 @@
 <!-- 主面板基礎架構,判斷是否需要轉頁 -->
 
-
-<!-- Font Awesome Icons -->
-<link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -31,6 +27,8 @@
   <{include file="tpl/index.tpl"}>
 <{elseif  $WEB.file_name == "cart.php"}>
   <{include file="tpl/cart.tpl"}>
+<{elseif  $WEB.file_name == "order.php"}>
+  <{include file="tpl/order.tpl"}>
 <{/if}>
 
 <{* 讀入頁尾(footer.tpl) *}>

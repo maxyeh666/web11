@@ -9,18 +9,28 @@ $sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
 
 /* 程式流程 */
 switch ($op){
+  case "order_list":
+    $msg = order_list($sn);
+    break;
+    
+  case "order_insert":
+    $returnUrl = order_insert($sn="");
+    redirect_header($returnUrl, "新增成功", 3000);    
+    exit;
+    
+  case "order_update":
+    $returnUrl = order_insert($sn="");
+    redirect_header($returnUrl, "編輯成功", 3000);    
+		exit;
+
   case "add_cart":
     $msg = add_cart($sn);
     redirect_header("cart.php", $msg, 3000);
     exit;
 
-  case "order_insert":
-    $msg = order_insert();
-    redirect_header("index.php", $msg, 3000);
-    exit;
 
   case "order_form":
-    $msg = order_form();
+    $msg = order_form($sn="");
     break;
 
   default:
@@ -39,6 +49,55 @@ switch ($op){
 $smarty->display('theme.tpl');
 
 //----函數區
+function order_list($sn){
+  global $db,$smarty;	
+  $date = system_CleanVars($_REQUEST, 'key', '', 'string');
+  $sql="SELECT a.*,
+               b.title as kind_title
+        FROM `orders_main` as a
+        LEFT JOIN `kinds`  as b on a.kind_sn = b.sn
+        WHERE a.`sn` = '{$sn}' AND a.`date` = '{$date}'
+  ";//die($sql);
+  $result = $db->query($sql) or die($db->error() . $sql);
+  $order_main = $result->fetch_assoc() or redirect_header(_WEB_URL, "無此筆資料", 3000);;
+
+  #訂單主檔
+  $order_main['name'] = htmlspecialchars($order_main['name']);//
+  $order_main['tel'] = htmlspecialchars($order_main['tel']);//
+  $order_main['email'] = htmlspecialchars($order_main['email']);//
+  $order_main['ps'] = htmlspecialchars($order_main['ps']);//
+
+  $order_main['date'] = (int)$order_main['date'];//
+  $order_main['date'] = date("Y-m-d H:i",$order_main['date']);
+
+  $order_main['total'] = (int)$order_main['total'];//
+  $order_main['kind_title'] = htmlspecialchars($order_main['kind_title']);//
+
+  $smarty->assign("order_main", $order_main);
+
+  #訂單明細檔
+  $sql="SELECT *
+        FROM `orders`
+        WHERE `orders_main_sn` = '{$sn}'
+        ORDER BY `sort`
+  ";
+  $result = $db->query($sql) or die($db->error() . $sql);
+  $rows = [];
+  //sn	orders_main_sn	prod_sn	title	amount	price	sort  
+  while($row = $result->fetch_assoc()){    
+    $row['sn'] = (int)$row['sn'];//分類  
+    $row['prod_sn'] = (int)$row['prod_sn'];//商品流水號
+    $row['title'] = htmlspecialchars($row['title']);//標題
+    $row['price'] = (int)$row['price'];//價格
+    $row['amount'] = (int)$row['amount'];//
+    $row['total'] = $row['price'] * $row['amount'] ? $row['price'] * $row['amount'] : "";//
+    $row['prod'] = getFilesByKindColsnSort("prod",$row['prod_sn']);
+    $rows[] = $row;
+  }
+
+  $smarty->assign("rows", $rows);
+}
+
 function op_list(){
   global $smarty,$db;
 
@@ -93,21 +152,6 @@ function add_cart($sn){
   return "加入購物車成功!";
 }
 
-function order_form(){
-  global $db,$smarty;
-  #驗證
-  $row['uid'] = isset($_SESSION['user']['uid']) ? $_SESSION['user']['uid'] : "" ;
-  $row['name'] = isset($_SESSION['user']['name'])? $_SESSION['user']['name'] : "";
-  $row['tel'] = isset($_SESSION['user']['tel'])? $_SESSION['user']['tel'] : "";
-  $row['email'] = isset($_SESSION['user']['email'])? $_SESSION['user']['email'] : "";
-
-  $row['kind_sn'] = "";//類別值
-  $row['kind_sn_options'] = getProdsOptions("orderKind");
-  $row['op'] = "order_insert";
-  // print_r($row);die();
-  $smarty->assign("row", $row);
-}
-
 function order_insert(){
   global $db;			 
  
@@ -125,22 +169,26 @@ function order_insert(){
                     VALUES 
                     ('{$_POST['name']}', '{$_POST['tel']}', '{$_POST['email']}', '{$_POST['ps']}', '{$_POST['uid']}', '{$_POST['date']}', '{$_POST['kind_sn']}')"; 
                     //die($sql);
+  // print_r($_POST);die;
   $db->query($sql) or die($db->error() . $sql);
   $sn = $db->insert_id;  
   
   #訂單明細檔
   $sort = 1;
   $Total = 0;
-  foreach($_POST['amount'] as $prod_sn => $amount){
-    $prod = getProdsBySn($prod_sn);
+  foreach($_POST['Amount'] as $prod_sn => $amount){ //取得html裡name=Amount的值,然後進行計算總價,資料庫將商品(prod_sn)指派數量(amount)
+    $prod = getProdsBySn($prod_sn); //根據sn取得商品資料
+    #過濾
     $prod['title'] = db_filter($prod['title'], '');
+    #驗證
     $prod['price'] = (int)$prod['price'];
+
     $Total += $prod['price'] * $amount;//小計累計
     $sql="INSERT INTO `orders` 
                       (`orders_main_sn`, `prod_sn`, `title`, `amount`, `price`, `sort`)
                       VALUES 
                       ('{$sn}', '{$prod_sn}', '{$prod['title']}', '{$amount}', '{$prod['price']}', '{$sort}')";
-    print_r($sql);die();
+    // print_r($sql);die();
     $db->query($sql) or die($db->error() . $sql);
     $sort++;
   }
@@ -150,8 +198,8 @@ function order_insert(){
                 `total` = '{$Total}'
                 WHERE `sn` = '{$sn}'";
   $db->query($sql) or die($db->error() . $sql);
-  unset($_SESSION['cart']);
-  unset($_SESSION['cartAmount']);
+  unset($_SESSION['cart']);  //unset()為清除設置的變數,這裡為清除購物車
+  unset($_SESSION['cartAmount']); //unset()為清除設置的變數,這裡為清除購物車計數
 
-  $msg = "訂單已新增!";
+  return "cart.php?op=order_list&sn={$sn}&key={$_POST['date']}";
 }

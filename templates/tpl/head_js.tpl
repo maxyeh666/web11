@@ -1,5 +1,7 @@
 <!-- 引入外部的程式、CSS -->
 
+<!-- Font Awesome Icons -->
+<link href="<{$xoImgUrl}>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Bootstrap core JavaScript -->
 <script src="<{$xoImgUrl}>vendor/jquery/jquery.min.js"></script>
