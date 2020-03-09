@@ -20,14 +20,13 @@ switch ($op){
     
   case "order_update":
     $returnUrl = order_insert($sn="");
-    redirect_header($returnUrl, "編輯成功", 3000);    
+    redirect_header($_SESSION['returnUrl'], "編輯成功", 3000);    
 		exit;
 
   case "add_cart":
     $msg = add_cart($sn);
     redirect_header("cart.php", $msg, 3000);
     exit;
-
 
   case "order_form":
     $msg = order_form($sn="");
@@ -162,6 +161,7 @@ function order_insert(){
   $_POST['ps'] = db_filter($_POST['ps'], '');
   $_POST['uid'] = db_filter($_POST['uid'], '');
   $_POST['date'] = strtotime("now");
+  $_POST['op'] = db_filter($_POST['op'], '');
   
   #訂單主檔
   $sql="INSERT INTO `orders_main` 
@@ -198,8 +198,88 @@ function order_insert(){
                 `total` = '{$Total}'
                 WHERE `sn` = '{$sn}'";
   $db->query($sql) or die($db->error() . $sql);
-  unset($_SESSION['cart']);  //unset()為清除設置的變數,這裡為清除購物車
-  unset($_SESSION['cartAmount']); //unset()為清除設置的變數,這裡為清除購物車計數
 
+  if($_POST['op'] == "order_insert"){
+    
+    $lineId = "Z5OBH8NYTqNI8yjhJUoFWKeJP63Yvph5430WzhnYgGv";
+
+    send_notify_curl("
+      您有一張訂單-{$sn}
+      合計金額：{$Total} 元
+    ", $lineId);
+
+    unset($_SESSION['cart']);  //unset()為清除設置的變數,這裡為清除購物車
+    unset($_SESSION['cartAmount']);  //unset()為清除設置的變數,這裡為清除購物車計數
+  }
   return "cart.php?op=order_list&sn={$sn}&key={$_POST['date']}";
+}
+
+function order_form($sn=""){
+  global $db,$smarty;
+    if($sn){      
+      if($_SESSION['user']['kind'] !== 1)redirect_header("index.php", '您沒有權限', 3000);
+      $row = getOrders_mainBySn($sn);
+      $row['kind_sn_options'] = getProdsOptions("orderKind");
+      $row['op'] = "order_update";      
+      
+      #明細檔
+      $sql="SELECT *
+            FROM `orders`
+            WHERE `orders_main_sn` = '{$sn}'
+            ORDER BY `sort`
+      ";  
+      $result = $db->query($sql) or die($db->error() . $sql);
+      $orders = [];
+      //sn	orders_main_sn	prod_sn	title	amount	price	sort  
+      while($order = $result->fetch_assoc()){    
+        $order['sn'] = (int)$order['sn'];//分類  
+        $order['prod_sn'] = (int)$order['prod_sn'];//商品流水號
+        $order['title'] = htmlspecialchars($order['title']);//標題
+        $order['price'] = (int)$order['price'];//價格
+        $order['amount'] = (int)$order['amount'];//
+        $order['prod'] = getFilesByKindColsnSort("prod",$order['prod_sn']);
+        $orders[$order['prod_sn']] = $order;
+      }
+      $smarty->assign("orders", $orders);
+
+    }else{
+      $row['sn'] = "";
+      $row['uid'] = isset($_SESSION['user']['uid']) ? $_SESSION['user']['uid'] : "" ;
+      $row['name'] = isset($_SESSION['user']['name'])? $_SESSION['user']['name'] : "";
+      $row['tel'] = isset($_SESSION['user']['tel'])? $_SESSION['user']['tel'] : "";
+      $row['email'] = isset($_SESSION['user']['email'])? $_SESSION['user']['email'] : "";
+    
+      $row['kind_sn'] = "";//類別值
+      $row['kind_sn_options'] = getProdsOptions("orderKind");
+      $row['op'] = "order_insert";
+
+    }
+    $smarty->assign("row", $row);
+
+}
+
+function send_notify_curl($message, $token) {
+	$curl = curl_init();
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://notify-api.line.me/api/notify",
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_ENCODING => "",
+	  CURLOPT_MAXREDIRS => 10,
+	  CURLOPT_TIMEOUT => 30,
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "POST",
+	  CURLOPT_POSTFIELDS => http_build_query(array("message" => $message),'','&'),
+	  CURLOPT_HTTPHEADER => array(
+		  "Authorization: Bearer $token",
+		  "Content-Type: application/x-www-form-urlencoded"
+	  ),
+	));
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
+	curl_close($curl);
+	if ($err) {
+	  return "cURL Error #:" . $err;
+	} else {
+	  return $response;
+	}
 }

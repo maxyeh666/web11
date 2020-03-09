@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-04 11:53:48
+/* Smarty version 3.1.34-dev-7, created on 2020-03-09 15:57:59
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\prod.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5f264cbc2e10_48779659',
+  'unifunc' => 'content_5e65f7074895c4_96285830',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16f5e2740ea2700bab95aac2ab810a24ec09f621' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\prod.tpl',
-      1 => 1583293279,
+      1 => 1583369508,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5f264cbc2e10_48779659 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e65f7074895c4_96285830 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 商品管理介面 -->
 
 
@@ -40,14 +40,11 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <thead>
         <tr>
             <th scope="col" class="text-center">圖片</th>
-            <th scope="col">標題</th>
+            <th scope="col">商品名稱</th>
             <th scope="col">分類</th>
             <th scope="col" class="text-right">價格</th>
-            <th scope="col" class="text-center">狀態</th>
-            <th scope="col" class="text-right">計數</th>
-            <th scope="col" class="text-center">
-                <a href="?op=op_form"><i class="far fa-plus-square"></i>新增</a></th>
-            </tr>
+            <th scope="col" class="text-center">數量</th>
+            <th scope="col" class="text-right">小計</th>
     </thead>
     <tbody>
         <!-- 若有讀取到資料庫的資料,則利用迴圈將資料寫入對應欄位 -->
@@ -55,11 +52,11 @@ vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rows']->value, 'row');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
-?>
+?> <!-- 把session資料寫入 -->
             <tr>
                 <td><img src="<?php echo $_smarty_tpl->tpl_vars['row']->value['prod'];?>
 " alt="<?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
-" style="width: 100px;"></td> 
+" width=100></td>
                 <td class="align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['title'];?>
 </td>
                 <td class="align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['kinds_title'];?>
@@ -67,11 +64,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
                 <td class="text-right align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['price'];?>
 </td>
                 <td class="text-center align-middle"><?php if ($_smarty_tpl->tpl_vars['row']->value['enable']) {?><i class="fas fa-check"></i><?php }?></td>
-                <td class="text-right align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
+                <td class="text-center align-middle"><?php echo $_smarty_tpl->tpl_vars['row']->value['counter'];?>
 </td>
                 <td class="text-center align-middle">
                     <a href="?op=op_form&sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
-"><i class="fas fa-edit"></i></a>
+"><i class="far fa-edit"></i></a>
                     <a href="javascript:void(0)" onclick="op_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 );"><i class="far fa-trash-alt"></i></a>
                 </td>
@@ -87,10 +84,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
         <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+        <tr>
+            <td colspan="4" class="text-right">合計</td> 
+            <td class="text-right" id="Total"></td>
+        </tr>
     </tbody>
-    <?php echo $_smarty_tpl->tpl_vars['bar']->value;?>
-
 </table>
+
 <?php }?>
 
 <?php if ($_smarty_tpl->tpl_vars['op']->value == "op_form") {?>

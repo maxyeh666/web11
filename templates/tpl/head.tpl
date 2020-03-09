@@ -17,6 +17,12 @@
                 </li>
             <{/foreach}>
 
+            <{if $smarty.session.cartAmount and $op != "op_form"}>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="cart.php?op=order_form"><i class="fas fa-shopping-cart"></i></a>
+                </li>
+            <{/if}>
+
             <!-- 判斷是否為管理員,並顯示為管理員或一般會員 -->
             <{if $smarty.session.user.kind === 1}>
                 <{*管理員登入顯示*}>

@@ -35,7 +35,7 @@
 <{include file="tpl/footer.tpl"}>
 
 <{* 購物車圖示是否出現 *}>
-<{if $smarty.session.cartAmount}>
+<{if $smarty.session.cartAmount and $op != "op_form"}>
 <!-- 購物車圖示樣式 -->
 <style>
   .fab-fixed-wrap .fab {

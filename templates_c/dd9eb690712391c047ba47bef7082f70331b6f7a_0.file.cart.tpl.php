@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-06 14:09:37
+/* Smarty version 3.1.34-dev-7, created on 2020-03-09 13:19:15
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e61e9213d95d1_93394961',
+  'unifunc' => 'content_5e65d1d31badc8_99245537',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd9eb690712391c047ba47bef7082f70331b6f7a' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\cart.tpl',
-      1 => 1583474744,
+      1 => 1583731153,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e61e9213d95d1_93394961 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e65d1d31badc8_99245537 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 購物車頁面 -->
 
 <!-- sweetlaert2 -->
@@ -57,9 +57,7 @@ class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 <div class="container" style="margin-top: 100px;">
 
     <!-- Page Heading -->
-    <h1 class="my-4">購物車
-        <small>-試做型-</small>
-    </h1>
+    <h1 class="my-4">商品總覽</h1>
 
     <div class="row">
         <?php

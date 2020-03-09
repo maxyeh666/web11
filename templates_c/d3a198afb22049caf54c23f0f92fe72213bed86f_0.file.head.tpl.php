@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-03 14:29:47
+/* Smarty version 3.1.34-dev-7, created on 2020-03-09 13:18:01
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\head.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5df95ba65760_17446235',
+  'unifunc' => 'content_5e65d1892f0f87_84629392',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd3a198afb22049caf54c23f0f92fe72213bed86f' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\head.tpl',
-      1 => 1583215122,
+      1 => 1583731045,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e5df95ba65760_17446235 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e65d1892f0f87_84629392 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 標頭導覽列 -->
 
 
@@ -48,6 +48,12 @@ foreach ($_from as $_smarty_tpl->tpl_vars['mainMenu']->value) {
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+
+            <?php if ($_SESSION['cartAmount'] && $_smarty_tpl->tpl_vars['op']->value != "op_form") {?>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="cart.php?op=order_form"><i class="fas fa-shopping-cart"></i></a>
+                </li>
+            <?php }?>
 
             <!-- 判斷是否為管理員,並顯示為管理員或一般會員 -->
             <?php if ($_SESSION['user']['kind'] === 1) {?>

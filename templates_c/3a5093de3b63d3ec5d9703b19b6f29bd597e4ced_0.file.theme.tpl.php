@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-04 16:36:55
+/* Smarty version 3.1.34-dev-7, created on 2020-03-09 13:18:01
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\theme.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e5f68a74534f8_19755556',
+  'unifunc' => 'content_5e65d1890ba3b7_98595711',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a5093de3b63d3ec5d9703b19b6f29bd597e4ced' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\theme.tpl',
-      1 => 1583311011,
+      1 => 1583730857,
       2 => 'file',
     ),
   ),
@@ -23,16 +23,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:tpl/head.tpl' => 1,
     'file:tpl/index.tpl' => 1,
     'file:tpl/cart.tpl' => 1,
+    'file:tpl/order.tpl' => 1,
     'file:tpl/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5e5f68a74534f8_19755556 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e65d1890ba3b7_98595711 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- 主面板基礎架構,判斷是否需要轉頁 -->
-
-
-<!-- Font Awesome Icons -->
-<link href="<?php echo $_smarty_tpl->tpl_vars['xoImgUrl']->value;?>
-vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
@@ -61,12 +57,14 @@ css/creative.min.css" rel="stylesheet">
   <?php $_smarty_tpl->_subTemplateRender("file:tpl/index.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 } elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "cart.php") {?>
   <?php $_smarty_tpl->_subTemplateRender("file:tpl/cart.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+} elseif ($_smarty_tpl->tpl_vars['WEB']->value['file_name'] == "order.php") {?>
+  <?php $_smarty_tpl->_subTemplateRender("file:tpl/order.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 }?>
 
 <?php $_smarty_tpl->_subTemplateRender("file:tpl/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
-<?php if ($_SESSION['cartAmount']) {?>
+<?php if ($_SESSION['cartAmount'] && $_smarty_tpl->tpl_vars['op']->value != "op_form") {?>
 <!-- 購物車圖示樣式 -->
 <style>
   .fab-fixed-wrap .fab {

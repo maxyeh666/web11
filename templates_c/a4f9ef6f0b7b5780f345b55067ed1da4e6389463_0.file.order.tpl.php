@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-03-06 14:49:39
+/* Smarty version 3.1.34-dev-7, created on 2020-03-09 14:22:13
   from 'D:\maxyeh\PHP\xampp\htdocs\web11\templates\tpl\order.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e61f2831aa5d2_68755354',
+  'unifunc' => 'content_5e65e095df5fc9_02917039',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a4f9ef6f0b7b5780f345b55067ed1da4e6389463' => 
     array (
       0 => 'D:\\maxyeh\\PHP\\xampp\\htdocs\\web11\\templates\\tpl\\order.tpl',
-      1 => 1583477220,
+      1 => 1583734931,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e61f2831aa5d2_68755354 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e65e095df5fc9_02917039 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['op']->value == "op_list") {?>
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
@@ -53,7 +53,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['row']->value) {
                     <td class="text-center">
                         <a href="?op=op_form&sn=<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 "><i class="far fa-edit"></i></a>
-                        <a href="javascript:void(0)" onclick="op_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
+                        <a href="javascript:void(0)" onclick="order_delete(<?php echo $_smarty_tpl->tpl_vars['row']->value['sn'];?>
 );"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
@@ -75,14 +75,14 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     
     <!-- sweetalert2 -->
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
-class/sweetalert2/sweetalert2.min.css">
+class/sweetalert2/sweetalert2.css">
     <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['xoAppUrl']->value;?>
-class/sweetalert2/sweetalert2.min.js"><?php echo '</script'; ?>
+class/sweetalert2/sweetalert2.all.min.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
 >
-        function op_delete(sn){
+        function order_delete(sn){
             Swal.fire({
                 title: '你確定嗎？',
                 text: "您將無法還原！",
@@ -94,7 +94,7 @@ class/sweetalert2/sweetalert2.min.js"><?php echo '</script'; ?>
                 cancelButtonText: '取消'
                 }).then((result) => {
                 if (result.value) {
-                    document.location.href="prod.php?op=op_delete&sn="+sn;
+                    document.location.href="order.php?op=order_delete&sn="+sn;
                 }
             })
         }

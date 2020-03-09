@@ -28,9 +28,7 @@
 <div class="container" style="margin-top: 100px;">
 
     <!-- Page Heading -->
-    <h1 class="my-4">購物車
-        <small>-試做型-</small>
-    </h1>
+    <h1 class="my-4">商品總覽</h1>
 
     <div class="row">
         <{foreach $rows as $row}>
